@@ -27,7 +27,6 @@
     <Folder Include="Configurations\" />
     <Folder Include="Dtos\Response\" />
     <Folder Include="Dtos\Request\" />
-    <Folder Include="Entities\" />
     <Folder Include="Services\" />
     <Folder Include="Repositories\Interfaces\" />
   </ItemGroup>
