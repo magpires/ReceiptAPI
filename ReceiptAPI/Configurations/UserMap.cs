@@ -11,9 +11,21 @@ namespace ReceiptAPI.Configurations
         public override void Configure(EntityTypeBuilder<User> builder)
         {
             base.Configure(builder);
-            builder.Property(x => x.Name).HasColumnName("name").HasColumnType("varchar(255)").IsRequired();
-            builder.Property(x => x.Email).HasColumnName("email").HasColumnType("varchar(100)").IsRequired();
-            builder.Property(x => x.Password).HasColumnName("password").HasColumnType("varchar(255)").IsRequired();
+
+            builder.Property(x => x.Name)
+                .HasColumnName("name")
+                .HasColumnType("varchar(255)")
+                .IsRequired();
+
+            builder.Property(x => x.Email)
+                .HasColumnName("email")
+                .HasColumnType("varchar(100)")
+                .IsRequired();
+
+            builder.Property(x => x.Password)
+                .HasColumnName("password")
+                .HasColumnType("varchar(255)")
+                .IsRequired();
         }
     }
 }
