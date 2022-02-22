@@ -1,11 +1,13 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using ReceiptAPI.Context;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,11 +33,11 @@ namespace ReceiptAPI
                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
             });
 
-            //services.AddDbContext<ReceiptContext>(options =>
-            //{
-            //    options.UseNpgsql(Configuration.GetConnectionString("Default"),
-            //        assemby => assemby.MigrationsAssembly(typeof(ReceiptContext).Assembly.FullName));
-            //});
+            services.AddDbContext<ReceiptContext>(options =>
+            {
+                options.UseNpgsql(Configuration.GetConnectionString("Default"),
+                    assemby => assemby.MigrationsAssembly(typeof(ReceiptContext).Assembly.FullName));
+            });
 
             services.AddSwaggerGen(c =>
             {
