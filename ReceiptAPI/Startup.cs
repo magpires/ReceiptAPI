@@ -8,6 +8,8 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using ReceiptAPI.Context;
+using ReceiptAPI.Repositories;
+using ReceiptAPI.Repositories.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -48,6 +50,9 @@ namespace ReceiptAPI
             services.AddCors();
 
             // Repositories dependency injections
+            services.AddScoped<ICustomerRepository, CustomerRepository>();
+
+            // Services dependency injections
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
