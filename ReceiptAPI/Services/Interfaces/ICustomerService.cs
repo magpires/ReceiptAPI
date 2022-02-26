@@ -12,3 +12,4 @@ namespace ReceiptAPI.Services.Interfaces
         //Task<ResponseDto> DeleteCustomerAsync(int id);
     }
 }
+ 
