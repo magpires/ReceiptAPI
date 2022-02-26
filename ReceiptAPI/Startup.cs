@@ -10,6 +10,8 @@ using Microsoft.OpenApi.Models;
 using ReceiptAPI.Context;
 using ReceiptAPI.Repositories;
 using ReceiptAPI.Repositories.Interfaces;
+using ReceiptAPI.Services;
+using ReceiptAPI.Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -53,6 +55,7 @@ namespace ReceiptAPI
             services.AddScoped<ICustomerRepository, CustomerRepository>();
 
             // Services dependency injections
+            services.AddScoped<ICustomerService, CustomerService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
