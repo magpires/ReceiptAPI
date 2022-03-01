@@ -37,19 +37,13 @@ namespace ReceiptAPI
                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
             });
 
+            var connectionString = Configuration.GetConnectionString("Default");
+
             services.AddDbContext<ReceiptContext>(options =>
-            {
-                var connectionString = Configuration.GetConnectionString("Default");
-
-                services.AddDbContext<ReceiptContext>(options =>
-                    options.UseMySql(
-                        connectionString,
-                        ServerVersion.AutoDetect(connectionString),
-                        optionsBuilder => optionsBuilder.MigrationsAssembly(typeof(ReceiptContext).Assembly.FullName)));
-
-                //options.UseNpgsql(Configuration.GetConnectionString("Default"),
-                //    assemby => assemby.MigrationsAssembly(typeof(ReceiptContext).Assembly.FullName));
-            });
+                options.UseMySql(
+                    connectionString,
+                    ServerVersion.AutoDetect(connectionString),
+                    optionsBuilder => optionsBuilder.MigrationsAssembly(typeof(ReceiptContext).Assembly.FullName)));
 
             services.AddSwaggerGen(c =>
             {
