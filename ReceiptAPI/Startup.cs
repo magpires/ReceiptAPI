@@ -39,10 +39,36 @@ namespace ReceiptAPI
             var connectionString = Configuration.GetConnectionString("Default");
 
             services.AddDbContext<ReceiptContext>(options =>
+            {
+
+                var env = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+                string connectionString;
+                if (env == "Development")
+                {
+                    connectionString = Configuration.GetConnectionString("Default");
+                }
+                else
+                {
+                    //Connection String used at runtime by Heroku
+                    var connectionStringHeroku = Environment.GetEnvironmentVariable("CLEARDB_DATABASE_URL");
+                    connectionStringHeroku = connectionStringHeroku.Replace("mysql://", string.Empty);
+                    var userPassSide = connectionStringHeroku.Split("@")[0];
+                    var hostSide = connectionStringHeroku.Split("@")[1];
+
+                    var connUser = userPassSide.Split(":")[0];
+                    var connPass = userPassSide.Split(":")[1];
+                    var connHost = hostSide.Split("/")[0];
+                    var connDb = hostSide.Split("/")[1].Split("?")[0];
+
+                    connectionString = $"Server={connHost};Database={connDb};Uid={connUser};Pwd={connPass};SslMode=None;";
+
+                }
                 options.UseMySql(
                     connectionString,
                     ServerVersion.AutoDetect(connectionString),
-                    optionsBuilder => optionsBuilder.MigrationsAssembly(typeof(ReceiptContext).Assembly.FullName)));
+                    optionsBuilder => optionsBuilder.MigrationsAssembly(typeof(ReceiptContext).Assembly.FullName));
+
+            });
 
             services.AddSwaggerGen(c =>
             {
