@@ -27,5 +27,13 @@ namespace ReceiptAPI.Controllers
 
             return StatusCode(response.StatusCode, response);
         }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetById(int id)
+        {
+            var response = await _service.GetCustomerByIdAsync(id);
+
+            return StatusCode(response.StatusCode, response);
+        }
     }
 }
