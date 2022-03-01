@@ -46,7 +46,7 @@ namespace ReceiptAPI
 
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "ReceiptAPI", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = Configuration["AppName"], Version = "v1" });
             });
 
             services.AddAutoMapper(typeof(Startup));
@@ -71,7 +71,7 @@ namespace ReceiptAPI
             app.UseAuthorization();
             app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
             app.UseSwagger();
-            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "ReceiptAPI v1"));
+            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", Configuration["AppName"]));
 
             app.UseEndpoints(endpoints =>
             {
