@@ -17,12 +17,12 @@ namespace ReceiptAPI.Repositories
 
         public async Task<IEnumerable<Customer>> GetCustomersAsync()
         {
-            return await _context.Customers.ToListAsync();
+            return await _context.Set<Customer>().ToListAsync();
         }
 
         public async Task<Customer> GetCustomerByIdAsync(int id)
         {
-            return await _context.Customers.FindAsync(id);
+            return await _context.Set<Customer>().FindAsync(id);
         }
     }
 }

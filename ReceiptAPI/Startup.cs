@@ -39,8 +39,16 @@ namespace ReceiptAPI
 
             services.AddDbContext<ReceiptContext>(options =>
             {
-                options.UseNpgsql(Configuration.GetConnectionString("Default"),
-                    assemby => assemby.MigrationsAssembly(typeof(ReceiptContext).Assembly.FullName));
+                var connectionString = Configuration.GetConnectionString("Default");
+
+                services.AddDbContext<ReceiptContext>(options =>
+                    options.UseMySql(
+                        connectionString,
+                        ServerVersion.AutoDetect(connectionString),
+                        optionsBuilder => optionsBuilder.MigrationsAssembly(typeof(ReceiptContext).Assembly.FullName)));
+
+                //options.UseNpgsql(Configuration.GetConnectionString("Default"),
+                //    assemby => assemby.MigrationsAssembly(typeof(ReceiptContext).Assembly.FullName));
             });
 
             services.AddSwaggerGen(c =>

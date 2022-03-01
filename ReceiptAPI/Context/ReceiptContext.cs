@@ -5,10 +5,8 @@ namespace ReceiptAPI.Context
 {
     public class ReceiptContext : DbContext
     {
-        public ReceiptContext(DbContextOptions<ReceiptContext> options) : base(options) { }
-
-        public DbSet<User> users { get; set; }
-        public DbSet<Customer> Customers { get; set; }
+        public ReceiptContext(DbContextOptions<ReceiptContext> options) : base(options)
+        { }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
