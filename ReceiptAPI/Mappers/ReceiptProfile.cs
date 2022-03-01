@@ -9,6 +9,7 @@ namespace ReceiptAPI.Mappers
         public ReceiptProfile()
         {
             CreateMap<Customer, CustomerDto>();
+            CreateMap<Customer, CustomerDetailsDto>();
         }
     }
 }
