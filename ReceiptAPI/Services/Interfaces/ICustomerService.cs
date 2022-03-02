@@ -1,4 +1,5 @@
-﻿using ReceiptAPI.Dtos.Response;
+﻿using ReceiptAPI.Dtos.Request;
+using ReceiptAPI.Dtos.Response;
 using System.Threading.Tasks;
 
 namespace ReceiptAPI.Services.Interfaces
@@ -7,7 +8,7 @@ namespace ReceiptAPI.Services.Interfaces
     {
         Task<ResponseDto> GetCustomersAsync();
         Task<ResponseDto> GetCustomerByIdAsync(int id);
-        //Task<ResponseDto> PostCustomerAsync(CustomerPostDto customer);
+        Task<ResponseDto> PostCustomerAsync(CustomerPostDto customer);
         //Task<ResponseDto> UpdateCustomerAsync(int id, CustomerUpdateDto customer);
         //Task<ResponseDto> DeleteCustomerAsync(int id);
     }

@@ -1,6 +1,7 @@
 ﻿
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using ReceiptAPI.Dtos.Request;
 using ReceiptAPI.Services.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -32,6 +33,14 @@ namespace ReceiptAPI.Controllers
         public async Task<IActionResult> GetById(int id)
         {
             var response = await _service.GetCustomerByIdAsync(id);
+
+            return StatusCode(response.StatusCode, response);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Post(CustomerPostDto customer)
+        {
+            var response = await _service.PostCustomerAsync(customer);
 
             return StatusCode(response.StatusCode, response);
         }

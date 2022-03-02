@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using ReceiptAPI.Dtos.Request;
 using ReceiptAPI.Dtos.Response;
 using ReceiptAPI.Entities;
 
@@ -10,6 +11,7 @@ namespace ReceiptAPI.Mappers
         {
             CreateMap<Customer, CustomerDto>();
             CreateMap<Customer, CustomerDetailsDto>();
+            CreateMap<CustomerPostDto, Customer>();
         }
     }
 }
