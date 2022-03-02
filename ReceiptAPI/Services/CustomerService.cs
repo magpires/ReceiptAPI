@@ -55,8 +55,6 @@ namespace ReceiptAPI.Services
             var customerResponse = _mapper.Map<CustomerDetailsDto>(customer);
 
             return new ResponseDto(200, customerResponse);
-
-            throw new System.NotImplementedException();
         }
 
         public async Task<ResponseDto> PostCustomerAsync(CustomerPostDto customer)
