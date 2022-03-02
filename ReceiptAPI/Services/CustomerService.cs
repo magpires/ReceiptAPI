@@ -83,5 +83,46 @@ namespace ReceiptAPI.Services
 
             return new ResponseDto(200, customerResponse);
         }
+
+        public async Task<ResponseDto> UpdateCustomerAsync(int id, CustomerUpdateDto customer)
+        {
+            List<Notification> notifications = new List<Notification>();
+
+            if (id <= 0)
+                notifications.Add(new Notification("id", "O id do cliente é inválido"));
+
+            var contractNotifications = customer.Validate();
+
+            var dataInvalid = !contractNotifications.IsValid || notifications.Count > 0;
+
+            if (dataInvalid)    
+                return new ResponseDto(400, contractNotifications, notifications);
+
+            var customerDatabase = await _repository.GetCustomerByIdAsync(id);
+
+            var customerNotFound = customerDatabase == null;
+
+            if (customerNotFound)
+            {
+                notifications.Add(new Notification("data.customer", "Cliente não encontrado."));
+                return new ResponseDto(404, notifications); ;
+            }
+
+            var customerUpdate = _mapper.Map(customer, customerDatabase);
+
+            _repository.Update(customerUpdate);
+
+            if (!await _repository.SaveChangesAsync())
+                notifications.Add(new Notification("data.customer", "Erro ao atualizar o cliente"));
+
+            var errorSaveChanges = notifications.Count > 0;
+
+            if (errorSaveChanges)
+                return new ResponseDto(400, notifications);
+
+            var customerResponse = _mapper.Map<CustomerDetailsDto>(customerUpdate);
+
+            return new ResponseDto(200, customerResponse);
+        }
     }
 }
