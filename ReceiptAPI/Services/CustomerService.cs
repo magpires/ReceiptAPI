@@ -77,7 +77,7 @@ namespace ReceiptAPI.Services
             var errorSaveChanges = notifications.Count > 0;
 
             if (errorSaveChanges)
-                return new ResponseDto(400, notifications);
+                return new ResponseDto(500, notifications);
 
             var customerResponse = _mapper.Map<CustomerDetailsDto>(addCustomer);
 
@@ -118,11 +118,46 @@ namespace ReceiptAPI.Services
             var errorSaveChanges = notifications.Count > 0;
 
             if (errorSaveChanges)
-                return new ResponseDto(400, notifications);
+                return new ResponseDto(500, notifications);
 
             var customerResponse = _mapper.Map<CustomerDetailsDto>(customerUpdate);
 
             return new ResponseDto(200, customerResponse);
+        }
+
+        public async Task<ResponseDto> DeleteCustomerAsync(int id)
+        {
+            List<Notification> notifications = new List<Notification>();
+
+            if (id <= 0)
+                notifications.Add(new Notification("id", "O id do cliente é inválido"));
+
+            var dataInvalid = notifications.Count > 0;
+
+            if (dataInvalid)
+                return new ResponseDto(400, notifications);
+
+            var customer = await _repository.GetCustomerByIdAsync(id);
+
+            var customerNotFound = customer == null;
+
+            if (customerNotFound)
+            {
+                notifications.Add(new Notification("data.customer", "Cliente não encontrado."));
+                return new ResponseDto(404, notifications); ;
+            }
+
+            _repository.Delete(customer);
+
+            if (!await _repository.SaveChangesAsync())
+                notifications.Add(new Notification("data.customer", "Erro ao excluir o cliente."));
+
+            var errorSaveChanges = notifications.Count > 0;
+
+            if (errorSaveChanges)
+                return new ResponseDto(500, notifications);
+
+            return new ResponseDto();
         }
     }
 }
