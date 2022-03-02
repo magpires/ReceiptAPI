@@ -12,6 +12,10 @@ namespace ReceiptAPI.Mappers
             CreateMap<Customer, CustomerDto>();
             CreateMap<Customer, CustomerDetailsDto>();
             CreateMap<CustomerPostDto, Customer>();
+            CreateMap<CustomerUpdateDto, Customer>()
+                .ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
+            CreateMap<CustomerUpdateDto, Customer>()
+                .ForMember(dest => dest.Email, opt => opt.Condition(srcMember => (srcMember.Email != "")));
         }
     }
 }
