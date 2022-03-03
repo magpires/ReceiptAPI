@@ -1,4 +1,6 @@
-﻿namespace ReceiptAPI.Dtos.Response
+﻿using System;
+
+namespace ReceiptAPI.Dtos.Response
 {
     public class CustomerDetailsDto
     {
@@ -12,5 +14,7 @@
         public string District { get; set; }
         public string City { get; set; }
         public string State { get; set; }
+        public DateTime CreatedAt { get; set; }
+        public DateTime? UpdatedAt { get; set; }
     }
 }
