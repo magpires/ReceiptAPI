@@ -26,6 +26,9 @@ namespace ReceiptAPI.Configurations
                 .HasColumnName("password")
                 .HasColumnType("varchar(255)")
                 .IsRequired();
+
+            builder.HasIndex(u => u.Email)
+                .IsUnique();
         }
     }
 }
