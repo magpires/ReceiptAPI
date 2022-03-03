@@ -55,6 +55,9 @@ namespace ReceiptAPI.Configurations
                 .HasColumnName("state")
                 .HasColumnType("varchar(255)")
                 .IsRequired();
+
+            builder.HasIndex(c => new { c.Email, c.PhoneNumber })
+                .IsUnique();
         }
     }
 }
