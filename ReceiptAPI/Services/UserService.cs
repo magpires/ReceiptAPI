@@ -30,32 +30,32 @@ namespace ReceiptAPI.Services
             return new ResponseDto(200, usersResponse);
         }
 
-        //public async Task<ResponseDto> GetCustomerByIdAsync(int id)
-        //{
-        //    List<Notification> notifications = new List<Notification>();
+        public async Task<ResponseDto> GetUserByIdAsync(int id)
+        {
+            List<Notification> notifications = new List<Notification>();
 
-        //    if (id <= 0)
-        //        notifications.Add(new Notification("id", "O id do cliente é inválido"));
+            if (id <= 0)
+                notifications.Add(new Notification("id", "O id do usuário é inválido"));
 
-        //    var dataInvalid = notifications.Count > 0;
+            var dataInvalid = notifications.Count > 0;
 
-        //    if (dataInvalid)
-        //        return new ResponseDto(400, notifications);
+            if (dataInvalid)
+                return new ResponseDto(400, notifications);
 
-        //    var customer = await _repository.GetCustomerByIdAsync(id);
+            var user = await _repository.GetUserByIdAsync(id);
 
-        //    var customerNotFound = customer == null;
+            var userNotFound = user == null;
 
-        //    if (customerNotFound)
-        //    {
-        //        notifications.Add(new Notification("data.customer", "Cliente não encontrado."));
-        //        return new ResponseDto(404, notifications); ;
-        //    }
+            if (userNotFound)
+            {
+                notifications.Add(new Notification("data.user", "Usuário não encontrado."));
+                return new ResponseDto(404, notifications); ;
+            }
 
-        //    var customerResponse = _mapper.Map<CustomerDetailsDto>(customer);
+            var userResponse = _mapper.Map<UserDetailsDto>(user);
 
-        //    return new ResponseDto(200, customerResponse);
-        //}
+            return new ResponseDto(200, userResponse);
+        }
 
         //public async Task<ResponseDto> PostCustomerAsync(CustomerPostDto customer)
         //{
