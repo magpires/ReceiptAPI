@@ -29,16 +29,16 @@ namespace ReceiptAPI.Controllers
             return StatusCode(response.StatusCode, response);
         }
 
-        //[HttpGet("{id}")]
-        //public async Task<IActionResult> GetById(int id)
-        //{
-        //    var response = await _service.GetCustomerByIdAsync(id);
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetByIdAsync(int id)
+        {
+            var response = await _service.GetUserByIdAsync(id);
 
-        //    return StatusCode(response.StatusCode, response);
-        //}
+            return StatusCode(response.StatusCode, response);
+        }
 
         //[HttpPost]
-        //public async Task<IActionResult> Post(CustomerPostDto customer)
+        //public async Task<IActionResult> PostAsync(CustomerPostDto customer)
         //{
         //    var response = await _service.PostCustomerAsync(customer);
 
@@ -46,7 +46,7 @@ namespace ReceiptAPI.Controllers
         //}
 
         //[HttpPut("{id}")]
-        //public async Task<IActionResult> Put(int id, CustomerUpdateDto customer)
+        //public async Task<IActionResult> PutAsync(int id, CustomerUpdateDto customer)
         //{
         //    var response = await _service.UpdateCustomerAsync(id, customer);
 
@@ -54,7 +54,7 @@ namespace ReceiptAPI.Controllers
         //}
 
         //[HttpDelete("{id}")]
-        //public async Task<IActionResult> Put(int id)
+        //public async Task<IActionResult> DeleteAsync(int id)
         //{
         //    var response = await _service.DeleteCustomerAsync(id);
 
