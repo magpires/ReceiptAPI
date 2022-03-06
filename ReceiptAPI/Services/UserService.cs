@@ -76,7 +76,7 @@ namespace ReceiptAPI.Services
             }
 
             var addUser = _mapper.Map<User>(user);
-            addUser.EncryptPassword();
+            addUser.EncryptPassword(user.Password);
             addUser.SetCreatedAt();
 
             _repository.Add(addUser);
@@ -94,46 +94,65 @@ namespace ReceiptAPI.Services
             return new ResponseDto(200, userResponse);
         }
 
-        //public async Task<ResponseDto> UpdateCustomerAsync(int id, CustomerUpdateDto customer)
-        //{
-        //    List<Notification> notifications = new List<Notification>();
+        public async Task<ResponseDto> UpdateUserAsync(int id, UserUpdateDto user)
+        {
+            List<Notification> notifications = new List<Notification>();
 
-        //    if (id <= 0)
-        //        notifications.Add(new Notification("id", "O id do cliente é inválido"));
+            if (id <= 0)
+                notifications.Add(new Notification("idInvalid", "O id do usuário é inválido"));
 
-        //    var contractNotifications = customer.Validate();
+            var contractNotifications = user.Validate();
 
-        //    var dataInvalid = !contractNotifications.IsValid || notifications.Count > 0;
+            var dataInvalid = !contractNotifications.IsValid || notifications.Count > 0;
 
-        //    if (dataInvalid)    
-        //        return new ResponseDto(400, contractNotifications, notifications);
+            if (dataInvalid)
+                return new ResponseDto(400, contractNotifications, notifications);
 
-        //    var customerDatabase = await _repository.GetCustomerByIdAsync(id);
+            var userDatabase = await _repository.GetUserByIdAsync(id);
 
-        //    var customerNotFound = customerDatabase == null;
+            var userNotFound = userDatabase == null;
 
-        //    if (customerNotFound)
-        //    {
-        //        notifications.Add(new Notification("data.customer", "Cliente não encontrado."));
-        //        return new ResponseDto(404, notifications); ;
-        //    }
+            if (userNotFound)
+            {
+                notifications.Add(new Notification("userNotFound", "Usuário não encontrado."));
+                return new ResponseDto(404, notifications); ;
+            }
 
-        //    var customerUpdate = _mapper.Map(customer, customerDatabase);
+            var emailChanged = user.Email != userDatabase.Email;
 
-        //    _repository.Update(customerUpdate);
+            if (emailChanged)
+            {
+                var emailExists = await _repository.GetUserByEmailAsync(user.Email) != null;
 
-        //    if (!await _repository.SaveChangesAsync())
-        //        notifications.Add(new Notification("data.customer", "Erro ao atualizar o cliente"));
+                if (emailExists)
+                {
+                    notifications.Add(new Notification("emailExists", "O email informado já está cadastrado."));
+                    return new ResponseDto(400, notifications); ;
+                }
+            }
 
-        //    var errorSaveChanges = notifications.Count > 0;
+            var passwordChanged = !string.IsNullOrEmpty(user.Password);
 
-        //    if (errorSaveChanges)
-        //        return new ResponseDto(500, notifications);
+            var userUpdate = _mapper.Map(user, userDatabase);
+            userUpdate.SetUpdatedAt();
 
-        //    var customerResponse = _mapper.Map<CustomerDetailsDto>(customerUpdate);
+            if (passwordChanged)
+                userUpdate.EncryptPassword(user.Password);
 
-        //    return new ResponseDto(200, customerResponse);
-        //}
+            _repository.Update(userUpdate);
+
+            if (!await _repository.SaveChangesAsync())
+                notifications.Add(new Notification("saveChangesError", "Erro ao atualizar o usuário"));
+
+            var errorSaveChanges = notifications.Count > 0;
+
+            if (errorSaveChanges)
+                return new ResponseDto(500, notifications);
+
+            var userResponse = _mapper.Map<UserDetailsDto>(userUpdate);
+
+            return new ResponseDto(200, userResponse);
+        }
 
         //public async Task<ResponseDto> DeleteCustomerAsync(int id)
         //{
