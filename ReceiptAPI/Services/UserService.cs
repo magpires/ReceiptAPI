@@ -56,33 +56,35 @@ namespace ReceiptAPI.Services
 
             return new ResponseDto(200, userResponse);
         }
+        
+        public async Task<ResponseDto> PostUserAsync(UserPostDto user)
+        {
+            var contractNotifications = user.Validate();
+            List<Notification> notifications = new List<Notification>();
 
-        //public async Task<ResponseDto> PostCustomerAsync(CustomerPostDto customer)
-        //{
-        //    var contractNotifications = customer.Validate();
-        //    List<Notification> notifications = new List<Notification>();
+            var dataInvalid = !contractNotifications.IsValid;
 
-        //    var dataInvalid = !contractNotifications.IsValid;
+            if (dataInvalid)
+                return new ResponseDto(400, contractNotifications);
 
-        //    if (dataInvalid)
-        //        return new ResponseDto(400, contractNotifications);
+            return new ResponseDto(200, "sucesso");
 
-        //    var addCustomer = _mapper.Map<Customer>(customer);
+            var addCustomer = _mapper.Map<User>(user);
 
-        //    _repository.Add(addCustomer);
+            _repository.Add(addCustomer);
 
-        //    if (!await _repository.SaveChangesAsync())
-        //        notifications.Add(new Notification("data.customer", "Erro ao salvar o cliente."));
+            if (!await _repository.SaveChangesAsync())
+                notifications.Add(new Notification("data.customer", "Erro ao salvar o cliente."));
 
-        //    var errorSaveChanges = notifications.Count > 0;
+            var errorSaveChanges = notifications.Count > 0;
 
-        //    if (errorSaveChanges)
-        //        return new ResponseDto(500, notifications);
+            if (errorSaveChanges)
+                return new ResponseDto(500, notifications);
 
-        //    var customerResponse = _mapper.Map<CustomerDetailsDto>(addCustomer);
+            var customerResponse = _mapper.Map<CustomerDetailsDto>(addCustomer);
 
-        //    return new ResponseDto(200, customerResponse);
-        //}
+            return new ResponseDto(200, customerResponse);
+        }
 
         //public async Task<ResponseDto> UpdateCustomerAsync(int id, CustomerUpdateDto customer)
         //{
