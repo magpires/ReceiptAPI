@@ -6,9 +6,9 @@
         public string Email { get; set; }
         public string Password { get; set; }
 
-        public void EncryptPassword()
+        public void EncryptPassword(string password)
         {
-            Password = BCrypt.Net.BCrypt.HashPassword(Password);
+            Password = BCrypt.Net.BCrypt.HashPassword(password);
         }
     }
 }
