@@ -19,6 +19,7 @@ namespace ReceiptAPI.Mappers
 
             CreateMap<User, UserDto>();
             CreateMap<User, UserDetailsDto>();
+            CreateMap<UserPostDto, User>();
         }
     }
 }
