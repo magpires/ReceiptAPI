@@ -67,23 +67,31 @@ namespace ReceiptAPI.Services
             if (dataInvalid)
                 return new ResponseDto(400, contractNotifications);
 
-            return new ResponseDto(200, "sucesso");
+            var emailExists = await _repository.GetUserByEmailAsync(user.Email) != null;
 
-            var addCustomer = _mapper.Map<User>(user);
+            if (emailExists)
+            {
+                notifications.Add(new Notification("data.user", "O email informado já está cadastrado."));
+                return new ResponseDto(400, notifications); ;
+            }
 
-            _repository.Add(addCustomer);
+            var addUser = _mapper.Map<User>(user);
+            addUser.EncryptPassword();
+            addUser.SetCreatedAt();
+
+            _repository.Add(addUser);
 
             if (!await _repository.SaveChangesAsync())
-                notifications.Add(new Notification("data.customer", "Erro ao salvar o cliente."));
+                notifications.Add(new Notification("data.user", "Erro ao salvar o usuário."));
 
             var errorSaveChanges = notifications.Count > 0;
 
             if (errorSaveChanges)
                 return new ResponseDto(500, notifications);
 
-            var customerResponse = _mapper.Map<CustomerDetailsDto>(addCustomer);
+            var userResponse = _mapper.Map<UserDetailsDto>(addUser);
 
-            return new ResponseDto(200, customerResponse);
+            return new ResponseDto(200, userResponse);
         }
 
         //public async Task<ResponseDto> UpdateCustomerAsync(int id, CustomerUpdateDto customer)
