@@ -35,7 +35,7 @@ namespace ReceiptAPI.Services
             List<Notification> notifications = new List<Notification>();
 
             if (id <= 0)
-                notifications.Add(new Notification("id", "O id do usuário é inválido"));
+                notifications.Add(new Notification("idInvalid", "O id do usuário é inválido"));
 
             var dataInvalid = notifications.Count > 0;
 
@@ -48,7 +48,7 @@ namespace ReceiptAPI.Services
 
             if (userNotFound)
             {
-                notifications.Add(new Notification("data.user", "Usuário não encontrado."));
+                notifications.Add(new Notification("userNotFound", "Usuário não encontrado."));
                 return new ResponseDto(404, notifications); ;
             }
 
@@ -71,7 +71,7 @@ namespace ReceiptAPI.Services
 
             if (emailExists)
             {
-                notifications.Add(new Notification("data.user", "O email informado já está cadastrado."));
+                notifications.Add(new Notification("emailExists", "O email informado já está cadastrado."));
                 return new ResponseDto(400, notifications); ;
             }
 
@@ -82,7 +82,7 @@ namespace ReceiptAPI.Services
             _repository.Add(addUser);
 
             if (!await _repository.SaveChangesAsync())
-                notifications.Add(new Notification("data.user", "Erro ao salvar o usuário."));
+                notifications.Add(new Notification("saveChangesError", "Erro ao salvar o usuário."));
 
             var errorSaveChanges = notifications.Count > 0;
 
