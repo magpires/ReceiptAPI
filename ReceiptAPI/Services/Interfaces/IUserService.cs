@@ -10,7 +10,7 @@ namespace ReceiptAPI.Services.Interfaces
         Task<ResponseDto> GetUserByIdAsync(int id);
         Task<ResponseDto> PostUserAsync(UserPostDto user);
         Task<ResponseDto> UpdateUserAsync(int id, UserUpdateDto user);
-        //Task<ResponseDto> DeleteUserAsync(int id);
+        Task<ResponseDto> DeleteUserAsync(int id);
     }
 }
  
