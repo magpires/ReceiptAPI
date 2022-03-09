@@ -154,39 +154,39 @@ namespace ReceiptAPI.Services
             return new ResponseDto(200, userResponse);
         }
 
-        //public async Task<ResponseDto> DeleteCustomerAsync(int id)
-        //{
-        //    List<Notification> notifications = new List<Notification>();
+        public async Task<ResponseDto> DeleteUserAsync(int id)
+        {
+            List<Notification> notifications = new List<Notification>();
 
-        //    if (id <= 0)
-        //        notifications.Add(new Notification("id", "O id do cliente é inválido"));
+            if (id <= 0)
+                notifications.Add(new Notification("idInvalid", "O id do usuário é inválido"));
 
-        //    var dataInvalid = notifications.Count > 0;
+            var dataInvalid = notifications.Count > 0;
 
-        //    if (dataInvalid)
-        //        return new ResponseDto(400, notifications);
+            if (dataInvalid)
+                return new ResponseDto(400, notifications);
 
-        //    var customer = await _repository.GetCustomerByIdAsync(id);
+            var user = await _repository.GetUserByIdAsync(id);
 
-        //    var customerNotFound = customer == null;
+            var userNotFound = user == null;
 
-        //    if (customerNotFound)
-        //    {
-        //        notifications.Add(new Notification("data.customer", "Cliente não encontrado."));
-        //        return new ResponseDto(404, notifications); ;
-        //    }
+            if (userNotFound)
+            {
+                notifications.Add(new Notification("userNotFound", "Usuário não encontrado."));
+                return new ResponseDto(404, notifications); ;
+            }
 
-        //    _repository.Delete(customer);
+            _repository.Delete(user);
 
-        //    if (!await _repository.SaveChangesAsync())
-        //        notifications.Add(new Notification("data.customer", "Erro ao excluir o cliente."));
+            if (!await _repository.SaveChangesAsync())
+                notifications.Add(new Notification("saveChangesError", "Erro ao excluir o usuário."));
 
-        //    var errorSaveChanges = notifications.Count > 0;
+            var errorSaveChanges = notifications.Count > 0;
 
-        //    if (errorSaveChanges)
-        //        return new ResponseDto(500, notifications);
+            if (errorSaveChanges)
+                return new ResponseDto(500, notifications);
 
-        //    return new ResponseDto();
-        //}
+            return new ResponseDto();
+        }
     }
 }
