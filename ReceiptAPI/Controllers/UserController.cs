@@ -53,12 +53,12 @@ namespace ReceiptAPI.Controllers
             return StatusCode(response.StatusCode, response);
         }
 
-        //[HttpDelete("{id}")]
-        //public async Task<IActionResult> DeleteAsync(int id)
-        //{
-        //    var response = await _service.DeleteCustomerAsync(id);
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteAsync(int id)
+        {
+            var response = await _service.DeleteUserAsync(id);
 
-        //    return StatusCode(response.StatusCode, response);
-        //}
+            return StatusCode(response.StatusCode, response);
+        }
     }
 }
