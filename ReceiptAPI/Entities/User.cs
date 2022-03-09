@@ -1,9 +1,14 @@
 ﻿namespace ReceiptAPI.Entities
 {
-    public class User : Base
+    public class User : BaseEntity
     {
-        public int Name { get; set; }
+        public string Name { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
+
+        public void EncryptPassword(string password)
+        {
+            Password = BCrypt.Net.BCrypt.HashPassword(password);
+        }
     }
 }

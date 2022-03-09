@@ -4,7 +4,7 @@ using ReceiptAPI.Entities;
 
 namespace ReceiptAPI.Configurations
 {
-    public class UserMap : BaseMap<User>
+    public class UserMap : BaseEntityMap<User>
     {
         public UserMap() : base("users") { }
 

@@ -35,7 +35,7 @@ namespace ReceiptAPI.Services
             List<Notification> notifications = new List<Notification>();
 
             if (id <= 0)
-                notifications.Add(new Notification("id", "O id do cliente é inválido"));
+                notifications.Add(new Notification("idInvalid", "O id do cliente é inválido"));
 
             var dataInvalid = notifications.Count > 0;
 
@@ -48,7 +48,7 @@ namespace ReceiptAPI.Services
 
             if (customerNotFound)
             {
-                notifications.Add(new Notification("data.customer", "Cliente não encontrado."));
+                notifications.Add(new Notification("customerNotFound", "Cliente não encontrado."));
                 return new ResponseDto(404, notifications); ;
             }
 
@@ -67,12 +67,20 @@ namespace ReceiptAPI.Services
             if (dataInvalid)
                 return new ResponseDto(400, contractNotifications);
 
+            var emailExists = await _repository.GetCustomerByEmailAsync(customer.Email) != null;
+
+            if (emailExists)
+            {
+                notifications.Add(new Notification("emailExists", "Já existe um cliente com este endereço de email."));
+                return new ResponseDto(400, notifications); ;
+            }
+
             var addCustomer = _mapper.Map<Customer>(customer);
 
             _repository.Add(addCustomer);
 
             if (!await _repository.SaveChangesAsync())
-                notifications.Add(new Notification("data.customer", "Erro ao salvar o cliente."));
+                notifications.Add(new Notification("saveChangesError", "Erro ao salvar o cliente."));
 
             var errorSaveChanges = notifications.Count > 0;
 
@@ -89,7 +97,7 @@ namespace ReceiptAPI.Services
             List<Notification> notifications = new List<Notification>();
 
             if (id <= 0)
-                notifications.Add(new Notification("id", "O id do cliente é inválido"));
+                notifications.Add(new Notification("idInvalid", "O id do cliente é inválido"));
 
             var contractNotifications = customer.Validate();
 
@@ -104,8 +112,16 @@ namespace ReceiptAPI.Services
 
             if (customerNotFound)
             {
-                notifications.Add(new Notification("data.customer", "Cliente não encontrado."));
+                notifications.Add(new Notification("customerNotFound", "Cliente não encontrado."));
                 return new ResponseDto(404, notifications); ;
+            }
+
+            var emailExists = await _repository.GetCustomerByEmailAsync(customer.Email) != null;
+
+            if (emailExists)
+            {
+                notifications.Add(new Notification("emailExists", "Já existe um cliente com este endereço de email."));
+                return new ResponseDto(400, notifications); ;
             }
 
             var customerUpdate = _mapper.Map(customer, customerDatabase);
@@ -113,7 +129,7 @@ namespace ReceiptAPI.Services
             _repository.Update(customerUpdate);
 
             if (!await _repository.SaveChangesAsync())
-                notifications.Add(new Notification("data.customer", "Erro ao atualizar o cliente"));
+                notifications.Add(new Notification("saveChangesError", "Erro ao atualizar o cliente"));
 
             var errorSaveChanges = notifications.Count > 0;
 
@@ -130,7 +146,7 @@ namespace ReceiptAPI.Services
             List<Notification> notifications = new List<Notification>();
 
             if (id <= 0)
-                notifications.Add(new Notification("id", "O id do cliente é inválido"));
+                notifications.Add(new Notification("idInvalid", "O id do cliente é inválido"));
 
             var dataInvalid = notifications.Count > 0;
 
@@ -143,14 +159,14 @@ namespace ReceiptAPI.Services
 
             if (customerNotFound)
             {
-                notifications.Add(new Notification("data.customer", "Cliente não encontrado."));
+                notifications.Add(new Notification("customerNotFound", "Cliente não encontrado."));
                 return new ResponseDto(404, notifications); ;
             }
 
             _repository.Delete(customer);
 
             if (!await _repository.SaveChangesAsync())
-                notifications.Add(new Notification("data.customer", "Erro ao excluir o cliente."));
+                notifications.Add(new Notification("saveChangesError", "Erro ao excluir o cliente."));
 
             var errorSaveChanges = notifications.Count > 0;
 

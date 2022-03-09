@@ -80,9 +80,11 @@ namespace ReceiptAPI
 
             // Repositories dependency injections
             services.AddScoped<ICustomerRepository, CustomerRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
 
             // Services dependency injections
             services.AddScoped<ICustomerService, CustomerService>();
+            services.AddScoped<IUserService, UserService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

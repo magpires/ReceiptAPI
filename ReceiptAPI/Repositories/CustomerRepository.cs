@@ -3,6 +3,7 @@ using ReceiptAPI.Context;
 using ReceiptAPI.Entities;
 using ReceiptAPI.Repositories.Interfaces;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace ReceiptAPI.Repositories
@@ -23,6 +24,11 @@ namespace ReceiptAPI.Repositories
         public async Task<Customer> GetCustomerByIdAsync(int id)
         {
             return await _context.Set<Customer>().FindAsync(id);
+        }
+
+        public async Task<Customer> GetCustomerByEmailAsync(string email)
+        {
+            return await _context.Set<Customer>().Where(c => c.Email == email).FirstOrDefaultAsync();
         }
     }
 }

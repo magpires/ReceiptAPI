@@ -8,5 +8,6 @@ namespace ReceiptAPI.Repositories.Interfaces
     {
         Task<IEnumerable<Customer>> GetCustomersAsync();
         Task<Customer> GetCustomerByIdAsync(int id);
+        Task<Customer> GetCustomerByEmailAsync(string email);
     }
 }

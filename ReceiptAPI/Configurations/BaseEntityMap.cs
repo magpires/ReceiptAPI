@@ -4,10 +4,10 @@ using ReceiptAPI.Entities;
 
 namespace ReceiptAPI.Configurations
 {
-    public class BaseMap<T> : IEntityTypeConfiguration<T> where T : Base
+    public class BaseEntityMap<T> : IEntityTypeConfiguration<T> where T : BaseEntity
     {
         private readonly string _tableName;
-        public BaseMap(string tableName)
+        public BaseEntityMap(string tableName)
         {
             _tableName = tableName;
         }

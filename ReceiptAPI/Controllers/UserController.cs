@@ -12,11 +12,11 @@ namespace ReceiptAPI.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class CustomerController : ControllerBase
+    public class UserController : ControllerBase
     {
-        private readonly ICustomerService _service;
+        private readonly IUserService _service;
 
-        public CustomerController(ICustomerService service)
+        public UserController(IUserService service)
         {
             _service = service;
         }
@@ -24,7 +24,7 @@ namespace ReceiptAPI.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAsync()
         {
-            var response = await _service.GetCustomersAsync();
+            var response = await _service.GetUsersAsync();
 
             return StatusCode(response.StatusCode, response);
         }
@@ -32,23 +32,23 @@ namespace ReceiptAPI.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetByIdAsync(int id)
         {
-            var response = await _service.GetCustomerByIdAsync(id);
+            var response = await _service.GetUserByIdAsync(id);
 
             return StatusCode(response.StatusCode, response);
         }
 
         [HttpPost]
-        public async Task<IActionResult> PostAsync(CustomerPostDto customer)
+        public async Task<IActionResult> PostAsync(UserPostDto user)
         {
-            var response = await _service.PostCustomerAsync(customer);
+            var response = await _service.PostUserAsync(user);
 
             return StatusCode(response.StatusCode, response);
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutAsync(int id, CustomerUpdateDto customer)
+        public async Task<IActionResult> PutAsync(int id, UserUpdateDto user)
         {
-            var response = await _service.UpdateCustomerAsync(id, customer);
+            var response = await _service.UpdateUserAsync(id, user);
 
             return StatusCode(response.StatusCode, response);
         }
@@ -56,7 +56,7 @@ namespace ReceiptAPI.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteAsync(int id)
         {
-            var response = await _service.DeleteCustomerAsync(id);
+            var response = await _service.DeleteUserAsync(id);
 
             return StatusCode(response.StatusCode, response);
         }
