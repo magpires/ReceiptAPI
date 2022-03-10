@@ -22,6 +22,7 @@ namespace ReceiptAPI.Mappers
             CreateMap<UserPostDto, User>();
             CreateMap<UserUpdateDto, User>()
                 .ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
+            CreateMap<UserLoginPostDto, User>();
         }
     }
 }
