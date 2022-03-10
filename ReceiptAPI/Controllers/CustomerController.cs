@@ -1,4 +1,5 @@
 ﻿
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using ReceiptAPI.Dtos.Request;
@@ -12,6 +13,7 @@ namespace ReceiptAPI.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize(AuthenticationSchemes = "Bearer")]
     public class CustomerController : ControllerBase
     {
         private readonly ICustomerService _service;
