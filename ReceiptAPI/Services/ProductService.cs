@@ -84,54 +84,46 @@ namespace ReceiptAPI.Services
             return new ResponseDto(200, productResponse);
         }
 
-        //public async Task<ResponseDto> UpdateCustomerAsync(int id, CustomerUpdateDto customer)
-        //{
-        //    List<Notification> notifications = new List<Notification>();
+        public async Task<ResponseDto> UpdateProductAsync(int id, ProductUpdateDto product)
+        {
+            List<Notification> notifications = new List<Notification>();
 
-        //    if (id <= 0)
-        //        notifications.Add(new Notification("idInvalid", "O id do cliente é inválido"));
+            if (id <= 0)
+                notifications.Add(new Notification("idInvalid", "O id do produto é inválido"));
 
-        //    var contractNotifications = customer.Validate();
+            var contractNotifications = product.Validate();
 
-        //    var dataInvalid = !contractNotifications.IsValid || notifications.Count > 0;
+            var dataInvalid = !contractNotifications.IsValid || notifications.Count > 0;
 
-        //    if (dataInvalid)    
-        //        return new ResponseDto(400, contractNotifications, notifications);
+            if (dataInvalid)
+                return new ResponseDto(400, contractNotifications, notifications);
 
-        //    var customerDatabase = await _repository.GetCustomerByIdAsync(id);
+            var productDatabase = await _repository.GetProductByIdAsync(id);
 
-        //    var customerNotFound = customerDatabase == null;
+            var productNotFound = productDatabase == null;
 
-        //    if (customerNotFound)
-        //    {
-        //        notifications.Add(new Notification("customerNotFound", "Cliente não encontrado."));
-        //        return new ResponseDto(404, notifications); ;
-        //    }
+            if (productNotFound)
+            {
+                notifications.Add(new Notification("productNotFound", "Produto não encontrado."));
+                return new ResponseDto(404, notifications); ;
+            }
 
-        //    var emailExists = await _repository.GetCustomerByEmailAsync(customer.Email) != null;
+            var productUpdate = _mapper.Map(product, productDatabase);
 
-        //    if (emailExists)
-        //    {
-        //        notifications.Add(new Notification("emailExists", "Já existe um cliente com este endereço de email."));
-        //        return new ResponseDto(400, notifications); ;
-        //    }
+            _repository.Update(productUpdate);
 
-        //    var customerUpdate = _mapper.Map(customer, customerDatabase);
+            if (!await _repository.SaveChangesAsync())
+                notifications.Add(new Notification("saveChangesError", "Erro ao atualizar o produto."));
 
-        //    _repository.Update(customerUpdate);
+            var errorSaveChanges = notifications.Count > 0;
 
-        //    if (!await _repository.SaveChangesAsync())
-        //        notifications.Add(new Notification("saveChangesError", "Erro ao atualizar o cliente"));
+            if (errorSaveChanges)
+                return new ResponseDto(500, notifications);
 
-        //    var errorSaveChanges = notifications.Count > 0;
+            var productResponse = _mapper.Map<ProductDetailsDto>(productUpdate);
 
-        //    if (errorSaveChanges)
-        //        return new ResponseDto(500, notifications);
-
-        //    var customerResponse = _mapper.Map<CustomerDetailsDto>(customerUpdate);
-
-        //    return new ResponseDto(200, customerResponse);
-        //}
+            return new ResponseDto(200, productResponse);
+        }
 
         //public async Task<ResponseDto> DeleteCustomerAsync(int id)
         //{
