@@ -27,13 +27,13 @@ namespace ReceiptAPI.Controllers
             return StatusCode(response.StatusCode, response);
         }
 
-        //[HttpGet("{id}")]
-        //public async Task<IActionResult> GetByIdAsync(int id)
-        //{
-        //    var response = await _service.GetCustomerByIdAsync(id);
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetByIdAsync(int id)
+        {
+            var response = await _service.GetProductByIdAsync(id);
 
-        //    return StatusCode(response.StatusCode, response);
-        //}
+            return StatusCode(response.StatusCode, response);
+        }
 
         //[HttpPost]
         //public async Task<IActionResult> PostAsync(CustomerPostDto customer)
