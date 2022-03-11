@@ -30,32 +30,32 @@ namespace ReceiptAPI.Services
             return new ResponseDto(200, productsResponse);
         }
 
-        //public async Task<ResponseDto> GetCustomerByIdAsync(int id)
-        //{
-        //    List<Notification> notifications = new List<Notification>();
+        public async Task<ResponseDto> GetProductByIdAsync(int id)
+        {
+            List<Notification> notifications = new List<Notification>();
 
-        //    if (id <= 0)
-        //        notifications.Add(new Notification("idInvalid", "O id do cliente é inválido"));
+            if (id <= 0)
+                notifications.Add(new Notification("idInvalid", "O id do produto é inválido"));
 
-        //    var dataInvalid = notifications.Count > 0;
+            var dataInvalid = notifications.Count > 0;
 
-        //    if (dataInvalid)
-        //        return new ResponseDto(400, notifications);
+            if (dataInvalid)
+                return new ResponseDto(400, notifications);
 
-        //    var customer = await _repository.GetCustomerByIdAsync(id);
+            var product = await _repository.GetProductByIdAsync(id);
 
-        //    var customerNotFound = customer == null;
+            var productNotFound = product == null;
 
-        //    if (customerNotFound)
-        //    {
-        //        notifications.Add(new Notification("customerNotFound", "Cliente não encontrado."));
-        //        return new ResponseDto(404, notifications); ;
-        //    }
+            if (productNotFound)
+            {
+                notifications.Add(new Notification("productNotFound", "Produto não encontrado."));
+                return new ResponseDto(404, notifications); ;
+            }
 
-        //    var customerResponse = _mapper.Map<CustomerDetailsDto>(customer);
+            var productResponse = _mapper.Map<ProductDetailsDto>(product);
 
-        //    return new ResponseDto(200, customerResponse);
-        //}
+            return new ResponseDto(200, productResponse);
+        }
 
         //public async Task<ResponseDto> PostCustomerAsync(CustomerPostDto customer)
         //{
