@@ -35,13 +35,13 @@ namespace ReceiptAPI.Controllers
             return StatusCode(response.StatusCode, response);
         }
 
-        //[HttpPost]
-        //public async Task<IActionResult> PostAsync(CustomerPostDto customer)
-        //{
-        //    var response = await _service.PostCustomerAsync(customer);
+        [HttpPost]
+        public async Task<IActionResult> PostAsync(ProductPostDto product)
+        {
+            var response = await _service.PostProductAsync(product);
 
-        //    return StatusCode(response.StatusCode, response);
-        //}
+            return StatusCode(response.StatusCode, response);
+        }
 
         //[HttpPut("{id}")]
         //public async Task<IActionResult> PutAsync(int id, CustomerUpdateDto customer)
