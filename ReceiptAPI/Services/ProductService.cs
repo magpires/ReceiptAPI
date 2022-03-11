@@ -57,40 +57,32 @@ namespace ReceiptAPI.Services
             return new ResponseDto(200, productResponse);
         }
 
-        //public async Task<ResponseDto> PostCustomerAsync(CustomerPostDto customer)
-        //{
-        //    var contractNotifications = customer.Validate();
-        //    List<Notification> notifications = new List<Notification>();
+        public async Task<ResponseDto> PostProductAsync(ProductPostDto product)
+        {
+            var contractNotifications = product.Validate();
+            List<Notification> notifications = new List<Notification>();
 
-        //    var dataInvalid = !contractNotifications.IsValid;
+            var dataInvalid = !contractNotifications.IsValid;
 
-        //    if (dataInvalid)
-        //        return new ResponseDto(400, contractNotifications);
+            if (dataInvalid)
+                return new ResponseDto(400, contractNotifications);
 
-        //    var emailExists = await _repository.GetCustomerByEmailAsync(customer.Email) != null;
+            var addProduct = _mapper.Map<Product>(product);
 
-        //    if (emailExists)
-        //    {
-        //        notifications.Add(new Notification("emailExists", "Já existe um cliente com este endereço de email."));
-        //        return new ResponseDto(400, notifications); ;
-        //    }
+            _repository.Add(addProduct);
 
-        //    var addCustomer = _mapper.Map<Customer>(customer);
+            if (!await _repository.SaveChangesAsync())
+                notifications.Add(new Notification("saveChangesError", "Erro ao salvar o produto."));
 
-        //    _repository.Add(addCustomer);
+            var errorSaveChanges = notifications.Count > 0;
 
-        //    if (!await _repository.SaveChangesAsync())
-        //        notifications.Add(new Notification("saveChangesError", "Erro ao salvar o cliente."));
+            if (errorSaveChanges)
+                return new ResponseDto(500, notifications);
 
-        //    var errorSaveChanges = notifications.Count > 0;
+            var productResponse = _mapper.Map<ProductDetailsDto>(addProduct);
 
-        //    if (errorSaveChanges)
-        //        return new ResponseDto(500, notifications);
-
-        //    var customerResponse = _mapper.Map<CustomerDetailsDto>(addCustomer);
-
-        //    return new ResponseDto(200, customerResponse);
-        //}
+            return new ResponseDto(200, productResponse);
+        }
 
         //public async Task<ResponseDto> UpdateCustomerAsync(int id, CustomerUpdateDto customer)
         //{
