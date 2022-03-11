@@ -7,7 +7,7 @@ namespace ReceiptAPI.Services.Interfaces
     public interface IProductService
     {
         Task<ResponseDto> GetProductsAsync();
-        //Task<ResponseDto> GetProductByIdAsync(int id);
+        Task<ResponseDto> GetProductByIdAsync(int id);
         //Task<ResponseDto> PostCustomerAsync(ProductPostDto product);
         //Task<ResponseDto> UpdateProductAsync(int id, ProductUpdateDto product);
         //Task<ResponseDto> DeleteProductAsync(int id);
