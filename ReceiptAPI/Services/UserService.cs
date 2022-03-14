@@ -81,7 +81,9 @@ namespace ReceiptAPI.Services
 
             _repository.Add(addUser);
 
-            if (!await _repository.SaveChangesAsync())
+            var saveChangesError = !await _repository.SaveChangesAsync();
+
+            if (saveChangesError)
                 notifications.Add(new Notification("saveChangesError", "Erro ao salvar o usuário."));
 
             var errorSaveChanges = notifications.Count > 0;
@@ -141,7 +143,9 @@ namespace ReceiptAPI.Services
 
             _repository.Update(userUpdate);
 
-            if (!await _repository.SaveChangesAsync())
+            var saveChangesError = !await _repository.SaveChangesAsync();
+
+            if (saveChangesError)
                 notifications.Add(new Notification("saveChangesError", "Erro ao atualizar o usuário"));
 
             var errorSaveChanges = notifications.Count > 0;
@@ -178,7 +182,9 @@ namespace ReceiptAPI.Services
 
             _repository.Delete(user);
 
-            if (!await _repository.SaveChangesAsync())
+            var saveChangesError = !await _repository.SaveChangesAsync();
+
+            if (saveChangesError)
                 notifications.Add(new Notification("saveChangesError", "Erro ao excluir o usuário."));
 
             var errorSaveChanges = notifications.Count > 0;
