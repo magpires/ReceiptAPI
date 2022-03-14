@@ -79,7 +79,9 @@ namespace ReceiptAPI.Services
 
             _repository.Add(addCustomer);
 
-            if (!await _repository.SaveChangesAsync())
+            var saveChangesError = !await _repository.SaveChangesAsync();
+
+            if (saveChangesError)
                 notifications.Add(new Notification("saveChangesError", "Erro ao salvar o cliente."));
 
             var errorSaveChanges = notifications.Count > 0;
@@ -128,7 +130,9 @@ namespace ReceiptAPI.Services
 
             _repository.Update(customerUpdate);
 
-            if (!await _repository.SaveChangesAsync())
+            var saveChangesError = !await _repository.SaveChangesAsync();
+
+            if (saveChangesError)
                 notifications.Add(new Notification("saveChangesError", "Erro ao atualizar o cliente"));
 
             var errorSaveChanges = notifications.Count > 0;
@@ -165,7 +169,9 @@ namespace ReceiptAPI.Services
 
             _repository.Delete(customer);
 
-            if (!await _repository.SaveChangesAsync())
+            var saveChangesError = !await _repository.SaveChangesAsync();
+
+            if (saveChangesError)
                 notifications.Add(new Notification("saveChangesError", "Erro ao excluir o cliente."));
 
             var errorSaveChanges = notifications.Count > 0;
