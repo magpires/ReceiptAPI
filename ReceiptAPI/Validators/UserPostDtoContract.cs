@@ -9,7 +9,7 @@ namespace ReceiptAPI.Validators
         {
             Requires()
                 .IsNotNullOrEmpty(user.Name, "nameIsNotNullOrEmpty", "O nome do usuário não pode ser nulo.")
-                .IsLowerOrEqualsThan(user.Name, 255, "nameIsLowerOrEqualsThan", "O nome do cliente não deve ter mais que 255 digitos.")
+                .IsLowerOrEqualsThan(user.Name, 255, "nameIsLowerOrEqualsThan", "O nome do usuário não deve ter mais que 255 digitos.")
                 .IsNotNullOrEmpty(user.Email, "emailIsNotNullOrEmpty", "O email do usuário não pode ser nulo.")
                 .IsEmail(user.Email, "emailIsEmail", "Email inválido.")
                 .IsLowerThan(user.Email, 101, "emailIsLowerThan", "O email do usuário não pode ter mais que 100 digitos")
