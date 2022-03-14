@@ -71,7 +71,9 @@ namespace ReceiptAPI.Services
 
             _repository.Add(addProduct);
 
-            if (!await _repository.SaveChangesAsync())
+            var saveChangesError = !await _repository.SaveChangesAsync();
+
+            if (saveChangesError)
                 notifications.Add(new Notification("saveChangesError", "Erro ao salvar o produto."));
 
             var errorSaveChanges = notifications.Count > 0;
@@ -112,7 +114,9 @@ namespace ReceiptAPI.Services
 
             _repository.Update(productUpdate);
 
-            if (!await _repository.SaveChangesAsync())
+            var saveChangesError = !await _repository.SaveChangesAsync();
+
+            if (saveChangesError)
                 notifications.Add(new Notification("saveChangesError", "Erro ao atualizar o produto."));
 
             var errorSaveChanges = notifications.Count > 0;
@@ -149,7 +153,9 @@ namespace ReceiptAPI.Services
 
             _repository.Delete(product);
 
-            if (!await _repository.SaveChangesAsync())
+            var saveChangesError = !await _repository.SaveChangesAsync();
+
+            if (saveChangesError)
                 notifications.Add(new Notification("saveChangesError", "Erro ao excluir o produto."));
 
             var errorSaveChanges = notifications.Count > 0;
