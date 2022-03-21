@@ -2,14 +2,14 @@
 
 namespace ReceiptAPI.Dtos.Request
 {
-    public class ProductPostDto
+    public class ProductCreatetDto
     {
         public string Name { get; set; }
         public double Price { get; set; }
 
-        public ProductPostDtoContract Validate()
+        public ProductCreateDtoContract Validate()
         {
-            return new ProductPostDtoContract(this);
+            return new ProductCreateDtoContract(this);
         }
     }
 }

@@ -25,7 +25,7 @@ namespace ReceiptAPI.Controllers
         }
 
         [HttpPost("Register")]
-        public async Task<IActionResult> RegisterAsync(UserPostDto user)
+        public async Task<IActionResult> RegisterAsync(UserCreateDto user)
         {
             var response = await _service.RegisterAsync(user);
 

@@ -4,14 +4,14 @@ using System.Collections.Generic;
 
 namespace ReceiptAPI.Dtos.Request
 {
-    public class ProductReceiptPostDto
+    public class ProductReceiptCreateDto
     {
         public int ProductId { get; set; }
         public int Quantity { get; set; }
 
-        public ProductReceiptPostDtoContract Validate()
+        public ProductReceiptCreateDtoContract Validate()
         {
-            return new ProductReceiptPostDtoContract(this);
+            return new ProductReceiptCreateDtoContract(this);
         }
     }
 }

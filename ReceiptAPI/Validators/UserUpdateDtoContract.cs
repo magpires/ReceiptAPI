@@ -3,7 +3,7 @@ using ReceiptAPI.Dtos.Request;
 
 namespace ReceiptAPI.Validators
 {
-    public class UserUpdateDtoContract : Contract<UserPostDtoContract>
+    public class UserUpdateDtoContract : Contract<UserCreateDtoContract>
     {
         public UserUpdateDtoContract(UserUpdateDto user)
         {

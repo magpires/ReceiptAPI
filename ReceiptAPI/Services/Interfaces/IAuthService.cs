@@ -7,7 +7,7 @@ namespace ReceiptAPI.Services.Interfaces
     public interface IAuthService
     {
         Task<ResponseDto> AuthenticateAsync(UserLoginPostDto user);
-        Task<ResponseDto> RegisterAsync(UserPostDto user);
+        Task<ResponseDto> RegisterAsync(UserCreateDto user);
     }
 }
  

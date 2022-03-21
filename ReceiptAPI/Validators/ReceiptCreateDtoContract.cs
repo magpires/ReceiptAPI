@@ -3,9 +3,9 @@ using ReceiptAPI.Dtos.Request;
 
 namespace ReceiptAPI.Validators
 {
-    public class ReceiptPostDtoContract : Contract<ReceiptPostDtoContract>
+    public class ReceiptCreateDtoContract : Contract<ReceiptCreateDtoContract>
     {
-        public ReceiptPostDtoContract(ReceiptPostDto receipt)
+        public ReceiptCreateDtoContract(ReceiptCreateDto receipt)
         {
             Requires()
                 .IsGreaterThan(receipt.CustomerId, 0, "customerIdIsGreaterThan", "O id do cliente não pode ser menor ou igual a 0.")

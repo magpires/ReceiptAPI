@@ -2,7 +2,7 @@
 
 namespace ReceiptAPI.Dtos.Request
 {
-    public class CustomerPostDto
+    public class CustomerCreateDto
     {
         public string Name { get; set; }
         public string Email { get; set; }
@@ -14,9 +14,9 @@ namespace ReceiptAPI.Dtos.Request
         public string City { get; set; }
         public string State { get; set; }
 
-        public CustomerPostDtoContract Validate()
+        public CustomerCreateDtoContract Validate()
         {
-            return new CustomerPostDtoContract(this);
+            return new CustomerCreateDtoContract(this);
         }
     }
 }

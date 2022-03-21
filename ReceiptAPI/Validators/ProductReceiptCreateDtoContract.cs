@@ -3,9 +3,9 @@ using ReceiptAPI.Dtos.Request;
 
 namespace ReceiptAPI.Validators
 {
-    public class ProductReceiptPostDtoContract : Contract<ProductReceiptPostDtoContract>
+    public class ProductReceiptCreateDtoContract : Contract<ProductReceiptCreateDtoContract>
     {
-        public ProductReceiptPostDtoContract(ProductReceiptPostDto productReceipt)
+        public ProductReceiptCreateDtoContract(ProductReceiptCreateDto productReceipt)
         {
             Requires()
                 .IsGreaterThan(productReceipt.ProductId, 0, "productIdIsGreaterThan", "O id de um dos produtos não pode ser menor ou igual a 0.")

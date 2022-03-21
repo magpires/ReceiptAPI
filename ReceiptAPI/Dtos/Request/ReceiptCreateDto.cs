@@ -4,15 +4,15 @@ using System.Collections.Generic;
 
 namespace ReceiptAPI.Dtos.Request
 {
-    public class ReceiptPostDto
+    public class ReceiptCreateDto
     {
         public int CustomerId { get; set; }
-        public List<ProductReceiptPostDto> ProductReceipts { get; set; }
+        public List<ProductReceiptCreateDto> ProductReceipts { get; set; }
         public int PaymentMethod { get; set; }
 
-        public ReceiptPostDtoContract Validate()
+        public ReceiptCreateDtoContract Validate()
         {
-            return new ReceiptPostDtoContract(this);
+            return new ReceiptCreateDtoContract(this);
         }
     }
 }

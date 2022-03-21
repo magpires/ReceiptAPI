@@ -82,7 +82,7 @@ namespace ReceiptAPI.Services
             return new ResponseDto(200, receiptResponse);
         }
 
-        public async Task<ResponseDto> PostReceiptAsync(ReceiptPostDto receipt)
+        public async Task<ResponseDto> PostReceiptAsync(ReceiptCreateDto receipt)
         {
             var contractNotifications = receipt.Validate();
             List<Notification> notifications = new List<Notification>();

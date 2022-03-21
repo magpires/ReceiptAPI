@@ -40,7 +40,7 @@ namespace ReceiptAPI.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> PostAsync(CustomerPostDto customer)
+        public async Task<IActionResult> PostAsync(CustomerCreateDto customer)
         {
             var response = await _service.PostCustomerAsync(customer);
 

@@ -2,16 +2,16 @@
 
 namespace ReceiptAPI.Dtos.Request
 {
-    public class UserPostDto
+    public class UserCreateDto
     {
         public string Name { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
         public string ConfirmPassword { get; set; }
 
-        public UserPostDtoContract Validate()
+        public UserCreateDtoContract Validate()
         {
-            return new UserPostDtoContract(this);
+            return new UserCreateDtoContract(this);
         }
     }
 }

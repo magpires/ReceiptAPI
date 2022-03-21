@@ -3,9 +3,9 @@ using ReceiptAPI.Dtos.Request;
 
 namespace ReceiptAPI.Validators
 {
-    public class CustomerPostDtoContract : Contract<CustomerPostDtoContract>
+    public class CustomerCreateDtoContract : Contract<CustomerCreateDtoContract>
     {
-        public CustomerPostDtoContract(CustomerPostDto customer)
+        public CustomerCreateDtoContract(CustomerCreateDto customer)
         {
             Requires()
                 .IsNotNullOrEmpty(customer.Name, "nameNotNullOrEmpty", "O nome do cliente não pode ser nulo.")

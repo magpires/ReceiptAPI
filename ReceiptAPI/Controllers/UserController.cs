@@ -36,7 +36,7 @@ namespace ReceiptAPI.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> PostAsync(UserPostDto user)
+        public async Task<IActionResult> PostAsync(UserCreateDto user)
         {
             var response = await _service.PostUserAsync(user);
 

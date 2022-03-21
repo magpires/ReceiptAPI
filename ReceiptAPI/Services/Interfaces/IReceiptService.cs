@@ -9,7 +9,7 @@ namespace ReceiptAPI.Services.Interfaces
         Task<ResponseDto> GetReceiptsAsync();
         Task<ResponseDto> GetReceiptsByCustomerIdAsync(int customerId);
         Task<ResponseDto> GetReceiptByIdAsync(int id);
-        Task<ResponseDto> PostReceiptAsync(ReceiptPostDto receipt);
+        Task<ResponseDto> PostReceiptAsync(ReceiptCreateDto receipt);
         Task<ResponseDto> UpdateReceiptAsync(int id, ReceiptUpdateDto receipt);
         Task<ResponseDto> DeleteReceiptAsync(int id);
     }

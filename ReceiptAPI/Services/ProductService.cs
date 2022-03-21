@@ -57,7 +57,7 @@ namespace ReceiptAPI.Services
             return new ResponseDto(200, productResponse);
         }
 
-        public async Task<ResponseDto> PostProductAsync(ProductPostDto product)
+        public async Task<ResponseDto> PostProductAsync(ProductCreatetDto product)
         {
             var contractNotifications = product.Validate();
             List<Notification> notifications = new List<Notification>();

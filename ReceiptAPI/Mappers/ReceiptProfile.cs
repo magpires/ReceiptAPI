@@ -12,7 +12,7 @@ namespace ReceiptAPI.Mappers
         {
             CreateMap<Customer, CustomerDto>();
             CreateMap<Customer, CustomerDetailsDto>();
-            CreateMap<CustomerPostDto, Customer>();
+            CreateMap<CustomerCreateDto, Customer>();
             CreateMap<CustomerUpdateDto, Customer>()
                 .ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
             CreateMap<CustomerUpdateDto, Customer>()
@@ -20,7 +20,7 @@ namespace ReceiptAPI.Mappers
 
             CreateMap<Product, ProductDto>();
             CreateMap<Product, ProductDetailsDto>();
-            CreateMap<ProductPostDto, Product>();
+            CreateMap<ProductCreatetDto, Product>();
             CreateMap<ProductUpdateDto, Product>()
                 .ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
 
@@ -35,7 +35,7 @@ namespace ReceiptAPI.Mappers
             CreateMap<Receipt, ReceiptDetailsDto>()
                 .ForMember(dest => dest.CustomerName, opt => opt.MapFrom(src => src.Customer.Name))
                 .ForMember(dest => dest.Products, opt => opt.MapFrom(src => src.ProductReceipts));
-            CreateMap<ReceiptPostDto, Receipt>()
+            CreateMap<ReceiptCreateDto, Receipt>()
                 .ForMember(dest => dest.ProductReceipts, opt => opt.Ignore());
             CreateMap<ReceiptUpdateDto, Receipt>()
                 .ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
@@ -44,7 +44,7 @@ namespace ReceiptAPI.Mappers
 
             CreateMap<User, UserDto>();
             CreateMap<User, UserDetailsDto>();
-            CreateMap<UserPostDto, User>();
+            CreateMap<UserCreateDto, User>();
             CreateMap<UserUpdateDto, User>()
                 .ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
             CreateMap<UserLoginPostDto, User>();
