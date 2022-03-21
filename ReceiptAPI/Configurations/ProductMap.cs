@@ -6,7 +6,7 @@ namespace ReceiptAPI.Configurations
 {
     public class ProductMap : BaseEntityMap<Product>
     {
-        public ProductMap() : base("product") { }
+        public ProductMap() : base("products") { }
 
         public override void Configure(EntityTypeBuilder<Product> builder)
         {
@@ -14,12 +14,17 @@ namespace ReceiptAPI.Configurations
 
             builder.Property(x => x.Name)
                 .HasColumnName("name")
-                .HasColumnType("varchar(255)")
+                .HasMaxLength(255)
                 .IsRequired();
 
             builder.Property(x => x.Price)
                 .HasColumnName("price")
+                .HasDefaultValue(0.0)
                 .IsRequired();
+
+            builder.HasMany(p => p.ProductReceipts)
+                .WithOne(p => p.Product)
+                .HasForeignKey(x => x.ProductId);
         }
     }
 }

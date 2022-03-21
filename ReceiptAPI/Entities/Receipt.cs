@@ -8,6 +8,7 @@ namespace ReceiptAPI.Entities
         public int CustomerId { get; set; }
         public Customer Customer { get; set; }
         public List<Product> Products { get; set; }
+        public List<ProductReceipt> ProductReceipts { get; set; }
         public PaymentMethod PaymentMethod { get; set; }
     }
 }

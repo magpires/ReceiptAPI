@@ -20,7 +20,6 @@ namespace ReceiptAPI.Repositories
         {
             return await _context.Set<Receipt>()
                 .Include(x => x.Customer)
-                .Include(x => x.Products)
                 .ToListAsync();
         }
 
@@ -28,8 +27,6 @@ namespace ReceiptAPI.Repositories
         {
             return await _context.Set<Receipt>()
                 .Include(x => x.Customer)
-                .Include(x => x.Products)
-                .Where(x => x.CustomerId == customerId)
                 .ToListAsync();
         }
 
@@ -37,8 +34,9 @@ namespace ReceiptAPI.Repositories
         {
             return await _context.Set<Receipt>()
                 .Include(x => x.Customer)
-                .Include(x => x.Products)
-                .Where(x =>x.Id == id)
+                .Include(x => x.ProductReceipts)
+                .ThenInclude(x => x.Product)
+                .Where(x => x.Id == id)
                 .FirstOrDefaultAsync();
         }
     }

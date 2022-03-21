@@ -132,6 +132,7 @@ namespace ReceiptAPI
             // Repositories dependency injections
             services.AddScoped<ICustomerRepository, CustomerRepository>();
             services.AddScoped<IProductRepository, ProductRepository>();
+            services.AddScoped<IReceiptRepository, ReceiptRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
 
             // Services dependency injections
@@ -139,6 +140,7 @@ namespace ReceiptAPI
             services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<ITokenService, TokenService>();
+            services.AddScoped<IReceiptService, ReceiptService>();
             services.AddScoped<IUserService, UserService>();
         }
 

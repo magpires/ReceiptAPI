@@ -20,6 +20,12 @@ namespace ReceiptAPI.Repositories
         {
             return await _context.Set<Product>().ToListAsync();
         }
+        public async Task<IEnumerable<Product>> GetProductsByIdsAsync(int[] ids)
+        {
+            return await _context.Set<Product>()
+                .Where(x => ids.Contains(x.Id))
+                .ToListAsync();
+        }
 
         public async Task<Product> GetProductByIdAsync(int id)
         {
