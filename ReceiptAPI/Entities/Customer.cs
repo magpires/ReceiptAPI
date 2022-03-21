@@ -1,4 +1,6 @@
-﻿namespace ReceiptAPI.Entities
+﻿using System.Collections.Generic;
+
+namespace ReceiptAPI.Entities
 {
     public class Customer : BaseEntity
     {
@@ -11,5 +13,6 @@
         public string District { get; set; }
         public string City { get; set; }
         public string State { get; set; }
+        public List<Receipt> Receipts { get; set; }
     }
 }
