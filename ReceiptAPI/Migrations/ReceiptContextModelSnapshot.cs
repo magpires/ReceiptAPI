@@ -26,6 +26,7 @@ namespace ReceiptAPI.Migrations
 
                     b.Property<string>("City")
                         .IsRequired()
+                        .HasMaxLength(255)
                         .HasColumnType("varchar(255)")
                         .HasColumnName("city");
 
@@ -35,39 +36,46 @@ namespace ReceiptAPI.Migrations
 
                     b.Property<string>("District")
                         .IsRequired()
+                        .HasMaxLength(255)
                         .HasColumnType("varchar(255)")
                         .HasColumnName("district");
 
                     b.Property<string>("Email")
+                        .HasMaxLength(100)
                         .HasColumnType("varchar(100)")
                         .HasColumnName("email");
 
                     b.Property<int>("HouseNumber")
-                        .HasColumnType("integer")
+                        .HasColumnType("int")
                         .HasColumnName("house_number");
 
                     b.Property<string>("Name")
                         .IsRequired()
+                        .HasMaxLength(255)
                         .HasColumnType("varchar(255)")
                         .HasColumnName("name");
 
                     b.Property<string>("PhoneNumber")
                         .IsRequired()
+                        .HasMaxLength(11)
                         .HasColumnType("varchar(11)")
                         .HasColumnName("phone_number");
 
                     b.Property<string>("PostalCode")
                         .IsRequired()
+                        .HasMaxLength(11)
                         .HasColumnType("varchar(11)")
                         .HasColumnName("postal_code");
 
                     b.Property<string>("State")
                         .IsRequired()
+                        .HasMaxLength(255)
                         .HasColumnType("varchar(255)")
                         .HasColumnName("state");
 
                     b.Property<string>("Street")
                         .IsRequired()
+                        .HasMaxLength(255)
                         .HasColumnType("varchar(255)")
                         .HasColumnName("street");
 
@@ -96,15 +104,15 @@ namespace ReceiptAPI.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
+                        .HasMaxLength(255)
                         .HasColumnType("varchar(255)")
                         .HasColumnName("name");
 
                     b.Property<double>("Price")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("double")
+                        .HasDefaultValue(0.0)
                         .HasColumnName("price");
-
-                    b.Property<int?>("ReceiptId")
-                        .HasColumnType("int");
 
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime(6)")
@@ -112,18 +120,11 @@ namespace ReceiptAPI.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ReceiptId");
-
-                    b.ToTable("product");
+                    b.ToTable("products");
                 });
 
             modelBuilder.Entity("ReceiptAPI.Entities.ProductReceipt", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasColumnName("id");
-
                     b.Property<int>("ProductId")
                         .HasColumnType("int")
                         .HasColumnName("product_id");
@@ -132,9 +133,12 @@ namespace ReceiptAPI.Migrations
                         .HasColumnType("int")
                         .HasColumnName("receipt_id");
 
-                    b.HasKey("Id");
+                    b.Property<int>("quantity")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(1);
 
-                    b.HasIndex("ProductId");
+                    b.HasKey("ProductId", "ReceiptId");
 
                     b.HasIndex("ReceiptId");
 
@@ -157,7 +161,9 @@ namespace ReceiptAPI.Migrations
                         .HasColumnName("customer_id");
 
                     b.Property<int>("PaymentMethod")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int")
+                        .HasDefaultValue(1)
                         .HasColumnName("payment_method");
 
                     b.Property<DateTime?>("UpdatedAt")
@@ -168,7 +174,7 @@ namespace ReceiptAPI.Migrations
 
                     b.HasIndex("CustomerId");
 
-                    b.ToTable("receipt");
+                    b.ToTable("receipts");
                 });
 
             modelBuilder.Entity("ReceiptAPI.Entities.User", b =>
@@ -184,17 +190,20 @@ namespace ReceiptAPI.Migrations
 
                     b.Property<string>("Email")
                         .IsRequired()
+                        .HasMaxLength(100)
                         .HasColumnType("varchar(100)")
                         .HasColumnName("email");
 
                     b.Property<string>("Name")
                         .IsRequired()
+                        .HasMaxLength(255)
                         .HasColumnType("varchar(255)")
                         .HasColumnName("name");
 
                     b.Property<string>("Password")
                         .IsRequired()
-                        .HasColumnType("varchar(255)")
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)")
                         .HasColumnName("password");
 
                     b.Property<DateTime?>("UpdatedAt")
@@ -209,23 +218,16 @@ namespace ReceiptAPI.Migrations
                     b.ToTable("users");
                 });
 
-            modelBuilder.Entity("ReceiptAPI.Entities.Product", b =>
-                {
-                    b.HasOne("ReceiptAPI.Entities.Receipt", null)
-                        .WithMany("Products")
-                        .HasForeignKey("ReceiptId");
-                });
-
             modelBuilder.Entity("ReceiptAPI.Entities.ProductReceipt", b =>
                 {
                     b.HasOne("ReceiptAPI.Entities.Product", "Product")
-                        .WithMany()
+                        .WithMany("ProductReceipts")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("ReceiptAPI.Entities.Receipt", "Receipt")
-                        .WithMany()
+                        .WithMany("ProductReceipts")
                         .HasForeignKey("ReceiptId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -238,7 +240,7 @@ namespace ReceiptAPI.Migrations
             modelBuilder.Entity("ReceiptAPI.Entities.Receipt", b =>
                 {
                     b.HasOne("ReceiptAPI.Entities.Customer", "Customer")
-                        .WithMany()
+                        .WithMany("Receipts")
                         .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -246,9 +248,19 @@ namespace ReceiptAPI.Migrations
                     b.Navigation("Customer");
                 });
 
+            modelBuilder.Entity("ReceiptAPI.Entities.Customer", b =>
+                {
+                    b.Navigation("Receipts");
+                });
+
+            modelBuilder.Entity("ReceiptAPI.Entities.Product", b =>
+                {
+                    b.Navigation("ProductReceipts");
+                });
+
             modelBuilder.Entity("ReceiptAPI.Entities.Receipt", b =>
                 {
-                    b.Navigation("Products");
+                    b.Navigation("ProductReceipts");
                 });
 #pragma warning restore 612, 618
         }
