@@ -11,7 +11,7 @@ namespace ReceiptAPI.Validators
                 .IsNotNullOrEmpty(user.Email, "emailIsNotNullOrEmpty", "Por favor, insira seu email.")
                 .IsEmail(user.Email, "emailIsEmail", "Email inválido.")
                 .IsNotNullOrEmpty(user.Password, "passwordIsNotNullOrEmpty", "Por favor, insira sua senha.")
-                .IsLowerOrEqualsThan(user.Password, 256, "passwordIsLowerOrEqualsThan", "A senha do usuário não deve ter mais que 255 digitos.");
+                .IsLowerOrEqualsThan(user.Password, 255, "passwordIsLowerOrEqualsThan", "A senha do usuário não deve ter mais que 255 digitos.");
         }
     }
 }
