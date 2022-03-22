@@ -8,7 +8,7 @@ namespace ReceiptClient.Dtos.Response
 {
     public class TokenDto
     {
-        public UserDetailsDto User { get; set; }
-        public string Token { get; set; }
+        public UserDetailsDto? User { get; set; }
+        public string? Token { get; set; }
     }
 }
