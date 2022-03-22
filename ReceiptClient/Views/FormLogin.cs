@@ -1,5 +1,7 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Newtonsoft.Json.Linq;
 using ReceiptClient.Controllers;
+using ReceiptClient.Controllers.Interfaces;
 using ReceiptClient.Dtos.Request;
 using ReceiptClient.Dtos.Response;
 using System;
@@ -16,11 +18,15 @@ namespace ReceiptClient.Views
 {
     public partial class FormLogin : Form
     {
-        public FormLogin()
+        private readonly IAuthController _authController;
+
+        public FormLogin(IAuthController authController)
         {
             InitializeComponent();
             labelEmailError.Text = "";
             labelPasswordError.Text = "";
+
+            _authController = authController;
         }
 
         private void labelTitle_Click(object sender, EventArgs e)
@@ -45,7 +51,7 @@ namespace ReceiptClient.Views
                 Password = textBoxPassword.Text,
             };
 
-            var loginResponse = await AuthController.Login(user);
+            var loginResponse = await _authController.Login(user);
 
             var jsonString = await loginResponse.Content.ReadAsStringAsync();
             var jObject = JObject.Parse(jsonString);

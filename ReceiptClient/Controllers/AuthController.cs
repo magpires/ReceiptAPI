@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using ReceiptClient.Controllers.Interfaces;
 using ReceiptClient.Dtos.Request;
 using ReceiptClient.Dtos.Response;
 using ReceiptClient.Views;
@@ -12,9 +13,10 @@ using System.Windows.Forms;
 
 namespace ReceiptClient.Controllers
 {
-    public class AuthController
+    public class AuthController : IAuthController
     {
-        public async static Task<HttpResponseMessage> Login(UserLoginPostDto user)
+
+        public async Task<HttpResponseMessage> Login(UserLoginPostDto user)
         {
             string URI = "https://receiptapi22.herokuapp.com/api/Auth/Login";
 
