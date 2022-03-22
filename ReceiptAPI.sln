@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.32112.339
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReceiptAPI", "ReceiptAPI\ReceiptAPI.csproj", "{BA6DB714-F267-4BD1-BAF2-758BE743A031}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReceiptAPI", "ReceiptAPI\ReceiptAPI.csproj", "{BA6DB714-F267-4BD1-BAF2-758BE743A031}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReceiptClient", "ReceiptClient\ReceiptClient.csproj", "{2A881D78-A205-4BA8-A3F7-14A7A9469539}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{BA6DB714-F267-4BD1-BAF2-758BE743A031}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BA6DB714-F267-4BD1-BAF2-758BE743A031}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BA6DB714-F267-4BD1-BAF2-758BE743A031}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2A881D78-A205-4BA8-A3F7-14A7A9469539}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2A881D78-A205-4BA8-A3F7-14A7A9469539}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2A881D78-A205-4BA8-A3F7-14A7A9469539}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2A881D78-A205-4BA8-A3F7-14A7A9469539}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
