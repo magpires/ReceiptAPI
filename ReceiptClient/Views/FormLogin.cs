@@ -35,6 +35,10 @@ namespace ReceiptClient.Views
 
         private async void buttonLogin_ClickAsync(object sender, EventArgs e)
         {
+            buttonLogin.Enabled = false;
+            textBoxEmail.Enabled = false;
+            textBoxPassword.Enabled = false;
+
             var user = new UserLoginPostDto
             {
                 Email = textBoxEmail.Text,
@@ -74,6 +78,10 @@ namespace ReceiptClient.Views
                 var token = jObject["data"].ToObject<TokenDto>();
                 MessageBox.Show("Você logou com sucesso!");
             }
+
+            buttonLogin.Enabled = true;
+            textBoxEmail.Enabled = true;
+            textBoxPassword.Enabled = true;
         }
 
         private void panel1_Paint(object sender, PaintEventArgs e)
