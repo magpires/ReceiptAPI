@@ -1,3 +1,6 @@
+using Microsoft.Extensions.DependencyInjection;
+using ReceiptClient.Controllers;
+using ReceiptClient.Controllers.Interfaces;
 using ReceiptClient.Views;
 using System;
 using System.Collections.Generic;
@@ -18,7 +21,21 @@ namespace ReceiptClient
             Application.SetHighDpiMode(HighDpiMode.SystemAware);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new FormLogin());
+
+            var services = new ServiceCollection();
+            ConfigureServices(services);
+
+            using (ServiceProvider serviceProvider = services.BuildServiceProvider())
+            {
+                var formLogin = serviceProvider.GetRequiredService<FormLogin>();
+                Application.Run(formLogin);
+            }
+        }
+
+        public static void ConfigureServices(ServiceCollection services)
+        {
+            services.AddSingleton<IAuthController, AuthController>();
+            services.AddScoped<FormLogin>();
         }
     }
 }
