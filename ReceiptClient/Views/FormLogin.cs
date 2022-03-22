@@ -132,7 +132,9 @@ namespace ReceiptClient.Views
 
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-
+            FormUserRegister formUserRegister = new FormUserRegister();
+            this.Hide();
+            formUserRegister.Show();
         }
 
         private void label1_Click_3(object sender, EventArgs e)
