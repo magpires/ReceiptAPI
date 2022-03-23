@@ -4,6 +4,7 @@ using ReceiptClient.Controllers;
 using ReceiptClient.Controllers.Interfaces;
 using ReceiptClient.Dtos.Request;
 using ReceiptClient.Dtos.Response;
+using ReceiptClient.Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -19,14 +20,18 @@ namespace ReceiptClient.Views
     public partial class FormLogin : Form
     {
         private readonly IAuthController _authController;
+        private readonly IButtonEnableControl _buttonEnableControl;
+        private readonly FormUserRegister _formUserRegister;
 
-        public FormLogin(IAuthController authController)
+        public FormLogin(IAuthController authController, IButtonEnableControl buttonEnableControl, FormUserRegister formUserRegister)
         {
             InitializeComponent();
             labelEmailError.Text = "";
             labelPasswordError.Text = "";
 
             _authController = authController;
+            _buttonEnableControl = buttonEnableControl;
+            _formUserRegister = formUserRegister;
         }
 
         private void labelTitle_Click(object sender, EventArgs e)
@@ -42,6 +47,7 @@ namespace ReceiptClient.Views
         private async void buttonLogin_ClickAsync(object sender, EventArgs e)
         {
             buttonLogin.Enabled = false;
+
             textBoxEmail.Enabled = false;
             textBoxPassword.Enabled = false;
 
@@ -51,38 +57,45 @@ namespace ReceiptClient.Views
                 Password = textBoxPassword.Text,
             };
 
-            var loginResponse = await _authController.Login(user);
-
-            var jsonString = await loginResponse.Content.ReadAsStringAsync();
-            var jObject = JObject.Parse(jsonString);
-
-            var resultFail = !loginResponse.IsSuccessStatusCode;
-
-            if (resultFail)
+            try
             {
-                var notifications = jObject["notifications"].ToObject<List<NotificationDto>>();
+                var loginResponse = await _authController.Login(user);
 
-                var emailIsEmail = notifications.Where(x => x.Key == "emailIsEmail").Select(x => x.Message).FirstOrDefault();
-                var passwordIsLowerOrEqualsThan = notifications.Where(x => x.Key == "passwordIsLowerOrEqualsThan").Select(x => x.Message).FirstOrDefault();
-                var passwordIncorrect = notifications.Where(x => x.Key == "passwordIncorrect").Select(x => x.Message).FirstOrDefault();
-                var userNotFound = notifications.Where(x => x.Key == "userNotFound").Select(x => x.Message).FirstOrDefault();
+                var jsonString = await loginResponse.Content.ReadAsStringAsync();
+                var jObject = JObject.Parse(jsonString);
 
-                if (emailIsEmail != null)
-                    labelEmailError.Text = emailIsEmail;
+                var resultFail = !loginResponse.IsSuccessStatusCode;
 
-                if (passwordIsLowerOrEqualsThan != null)
-                    labelPasswordError.Text = passwordIsLowerOrEqualsThan;
+                if (resultFail)
+                {
+                    var notifications = jObject["notifications"].ToObject<List<NotificationDto>>();
 
-                if (passwordIncorrect != null)
-                    MessageBox.Show(passwordIncorrect);
+                    var emailIsEmail = notifications.Where(x => x.Key == "emailIsEmail").Select(x => x.Message).FirstOrDefault();
+                    var passwordIsLowerOrEqualsThan = notifications.Where(x => x.Key == "passwordIsLowerOrEqualsThan").Select(x => x.Message).FirstOrDefault();
+                    var passwordIncorrect = notifications.Where(x => x.Key == "passwordIncorrect").Select(x => x.Message).FirstOrDefault();
+                    var userNotFound = notifications.Where(x => x.Key == "userNotFound").Select(x => x.Message).FirstOrDefault();
 
-                if (userNotFound != null)
-                    MessageBox.Show(userNotFound);
+                    if (emailIsEmail != null)
+                        labelEmailError.Text = emailIsEmail;
+
+                    if (passwordIsLowerOrEqualsThan != null)
+                        labelPasswordError.Text = passwordIsLowerOrEqualsThan;
+
+                    if (passwordIncorrect != null)
+                        MessageBox.Show(passwordIncorrect);
+
+                    if (userNotFound != null)
+                        MessageBox.Show(userNotFound);
+                }
+                else
+                {
+                    var token = jObject["data"].ToObject<TokenDto>();
+                    MessageBox.Show("Você logou com sucesso!");
+                }
             }
-            else
+            catch (Exception exception)
             {
-                var token = jObject["data"].ToObject<TokenDto>();
-                MessageBox.Show("Você logou com sucesso!");
+                MessageBox.Show(exception.Message);
             }
 
             buttonLogin.Enabled = true;
@@ -107,14 +120,19 @@ namespace ReceiptClient.Views
 
         private void textBoxEmail_TextChanged(object sender, EventArgs e)
         {
+            var textBoxsNotEmpty = _buttonEnableControl.CheckTexBoxtFilled(Controls);
 
+            if (textBoxsNotEmpty)
+                buttonLogin.Enabled = true;
+            else
+                buttonLogin.Enabled = false;
         }
 
         private void textBoxPassword_TextChanged(object sender, EventArgs e)
         {
-            var textBoxsLoginNotEmpty = textBoxEmail.Text.Length > 0 && textBoxPassword.Text.Length > 0;
+            var textBoxsNotEmpty = _buttonEnableControl.CheckTexBoxtFilled(Controls);
 
-            if (textBoxsLoginNotEmpty)
+            if (textBoxsNotEmpty)
                 buttonLogin.Enabled = true;
             else
                 buttonLogin.Enabled = false;
@@ -132,9 +150,8 @@ namespace ReceiptClient.Views
 
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            FormUserRegister formUserRegister = new FormUserRegister();
-            this.Hide();
-            formUserRegister.Show();
+            var formUserRegister = Program.serviceProvider.GetService<FormUserRegister>();
+            formUserRegister.ShowDialog();
         }
 
         private void label1_Click_3(object sender, EventArgs e)
