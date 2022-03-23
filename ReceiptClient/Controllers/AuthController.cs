@@ -1,15 +1,9 @@
 ﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using ReceiptClient.Controllers.Interfaces;
 using ReceiptClient.Dtos.Request;
-using ReceiptClient.Dtos.Response;
-using ReceiptClient.Views;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace ReceiptClient.Controllers
 {
@@ -24,6 +18,19 @@ namespace ReceiptClient.Controllers
             {
                 var serializedLogin = JsonConvert.SerializeObject(user);
                 var content = new StringContent(serializedLogin, Encoding.UTF8, "application/json");
+                var result = await client.PostAsync(URI, content);
+                return result;
+            }
+        }
+
+        public async Task<HttpResponseMessage> Register(UserCreateDto user)
+        {
+            string URI = "https://receiptapi22.herokuapp.com/api/Auth/Register";
+
+            using (var client = new HttpClient())
+            {
+                var serializedRegister = JsonConvert.SerializeObject(user);
+                var content = new StringContent(serializedRegister, Encoding.UTF8, "application/json");
                 var result = await client.PostAsync(URI, content);
                 return result;
             }
