@@ -11,5 +11,6 @@ namespace ReceiptClient.Controllers.Interfaces
     public interface IAuthController
     {
         Task<HttpResponseMessage> Login(UserLoginPostDto user);
+        Task<HttpResponseMessage> Register(UserCreateDto user);
     }
 }

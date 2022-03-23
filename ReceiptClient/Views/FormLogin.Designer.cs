@@ -36,7 +36,7 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.labelPasswordError = new System.Windows.Forms.Label();
             this.labelEmailError = new System.Windows.Forms.Label();
-            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
+            this.linkLabelRegister = new System.Windows.Forms.LinkLabel();
             this.labelNoAccount = new System.Windows.Forms.Label();
             this.labelPassword = new System.Windows.Forms.Label();
             this.labelEmail = new System.Windows.Forms.Label();
@@ -48,9 +48,9 @@
             // 
             this.labelTitle.AutoSize = true;
             this.labelTitle.Font = new System.Drawing.Font("Segoe UI", 45F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.labelTitle.Location = new System.Drawing.Point(138, 53);
+            this.labelTitle.Location = new System.Drawing.Point(121, 40);
             this.labelTitle.Name = "labelTitle";
-            this.labelTitle.Size = new System.Drawing.Size(285, 100);
+            this.labelTitle.Size = new System.Drawing.Size(229, 81);
             this.labelTitle.TabIndex = 0;
             this.labelTitle.Text = "Receipt";
             this.labelTitle.TextAlign = System.Drawing.ContentAlignment.TopRight;
@@ -59,9 +59,9 @@
             // labelVersion
             // 
             this.labelVersion.AutoSize = true;
-            this.labelVersion.Location = new System.Drawing.Point(341, 171);
+            this.labelVersion.Location = new System.Drawing.Point(298, 128);
             this.labelVersion.Name = "labelVersion";
-            this.labelVersion.Size = new System.Drawing.Size(35, 20);
+            this.labelVersion.Size = new System.Drawing.Size(28, 15);
             this.labelVersion.TabIndex = 1;
             this.labelVersion.Text = "v1.0";
             this.labelVersion.Click += new System.EventHandler(this.label1_Click);
@@ -69,33 +69,30 @@
             // textBoxEmail
             // 
             this.textBoxEmail.AccessibleDescription = "Email";
-            this.textBoxEmail.Location = new System.Drawing.Point(93, 135);
-            this.textBoxEmail.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.textBoxEmail.Location = new System.Drawing.Point(81, 101);
             this.textBoxEmail.MaxLength = 100;
             this.textBoxEmail.Name = "textBoxEmail";
-            this.textBoxEmail.Size = new System.Drawing.Size(258, 27);
+            this.textBoxEmail.Size = new System.Drawing.Size(226, 23);
             this.textBoxEmail.TabIndex = 2;
             this.textBoxEmail.TextChanged += new System.EventHandler(this.textBoxEmail_TextChanged);
             // 
             // textBoxPassword
             // 
             this.textBoxPassword.AccessibleDescription = "Senha";
-            this.textBoxPassword.Location = new System.Drawing.Point(93, 223);
-            this.textBoxPassword.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.textBoxPassword.Location = new System.Drawing.Point(81, 167);
             this.textBoxPassword.MaxLength = 255;
             this.textBoxPassword.Name = "textBoxPassword";
             this.textBoxPassword.PasswordChar = '*';
-            this.textBoxPassword.Size = new System.Drawing.Size(258, 27);
+            this.textBoxPassword.Size = new System.Drawing.Size(226, 23);
             this.textBoxPassword.TabIndex = 3;
             this.textBoxPassword.TextChanged += new System.EventHandler(this.textBoxPassword_TextChanged);
             // 
             // buttonLogin
             // 
             this.buttonLogin.Enabled = false;
-            this.buttonLogin.Location = new System.Drawing.Point(173, 299);
-            this.buttonLogin.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.buttonLogin.Location = new System.Drawing.Point(151, 224);
             this.buttonLogin.Name = "buttonLogin";
-            this.buttonLogin.Size = new System.Drawing.Size(86, 31);
+            this.buttonLogin.Size = new System.Drawing.Size(75, 23);
             this.buttonLogin.TabIndex = 4;
             this.buttonLogin.Text = "Login";
             this.buttonLogin.UseVisualStyleBackColor = true;
@@ -106,7 +103,7 @@
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel1.Controls.Add(this.labelPasswordError);
             this.panel1.Controls.Add(this.labelEmailError);
-            this.panel1.Controls.Add(this.linkLabel1);
+            this.panel1.Controls.Add(this.linkLabelRegister);
             this.panel1.Controls.Add(this.labelNoAccount);
             this.panel1.Controls.Add(this.labelPassword);
             this.panel1.Controls.Add(this.labelEmail);
@@ -114,10 +111,9 @@
             this.panel1.Controls.Add(this.textBoxEmail);
             this.panel1.Controls.Add(this.buttonLogin);
             this.panel1.Controls.Add(this.textBoxPassword);
-            this.panel1.Location = new System.Drawing.Point(50, 213);
-            this.panel1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.panel1.Location = new System.Drawing.Point(44, 160);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(449, 394);
+            this.panel1.Size = new System.Drawing.Size(393, 296);
             this.panel1.TabIndex = 5;
             this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
@@ -126,9 +122,9 @@
             this.labelPasswordError.AutoSize = true;
             this.labelPasswordError.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.labelPasswordError.ForeColor = System.Drawing.Color.Red;
-            this.labelPasswordError.Location = new System.Drawing.Point(93, 254);
+            this.labelPasswordError.Location = new System.Drawing.Point(81, 190);
             this.labelPasswordError.Name = "labelPasswordError";
-            this.labelPasswordError.Size = new System.Drawing.Size(111, 20);
+            this.labelPasswordError.Size = new System.Drawing.Size(87, 15);
             this.labelPasswordError.TabIndex = 12;
             this.labelPasswordError.Text = "PasswordError";
             this.labelPasswordError.Click += new System.EventHandler(this.label1_Click_3);
@@ -138,49 +134,49 @@
             this.labelEmailError.AutoSize = true;
             this.labelEmailError.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.labelEmailError.ForeColor = System.Drawing.Color.Red;
-            this.labelEmailError.Location = new System.Drawing.Point(93, 166);
+            this.labelEmailError.Location = new System.Drawing.Point(81, 124);
             this.labelEmailError.Name = "labelEmailError";
-            this.labelEmailError.Size = new System.Drawing.Size(82, 20);
+            this.labelEmailError.Size = new System.Drawing.Size(64, 15);
             this.labelEmailError.TabIndex = 11;
             this.labelEmailError.Text = "EmailError";
             this.labelEmailError.Click += new System.EventHandler(this.label1_Click_2);
             // 
-            // linkLabel1
+            // linkLabelRegister
             // 
-            this.linkLabel1.AutoSize = true;
-            this.linkLabel1.LinkColor = System.Drawing.SystemColors.MenuHighlight;
-            this.linkLabel1.Location = new System.Drawing.Point(248, 351);
-            this.linkLabel1.Name = "linkLabel1";
-            this.linkLabel1.Size = new System.Drawing.Size(83, 20);
-            this.linkLabel1.TabIndex = 10;
-            this.linkLabel1.TabStop = true;
-            this.linkLabel1.Text = "Registre-se";
-            this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
+            this.linkLabelRegister.AutoSize = true;
+            this.linkLabelRegister.LinkColor = System.Drawing.SystemColors.MenuHighlight;
+            this.linkLabelRegister.Location = new System.Drawing.Point(217, 263);
+            this.linkLabelRegister.Name = "linkLabelRegister";
+            this.linkLabelRegister.Size = new System.Drawing.Size(65, 15);
+            this.linkLabelRegister.TabIndex = 10;
+            this.linkLabelRegister.TabStop = true;
+            this.linkLabelRegister.Text = "Registre-se";
+            this.linkLabelRegister.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
             // 
             // labelNoAccount
             // 
             this.labelNoAccount.AutoSize = true;
-            this.labelNoAccount.Location = new System.Drawing.Point(119, 351);
+            this.labelNoAccount.Location = new System.Drawing.Point(104, 263);
             this.labelNoAccount.Name = "labelNoAccount";
-            this.labelNoAccount.Size = new System.Drawing.Size(148, 20);
+            this.labelNoAccount.Size = new System.Drawing.Size(118, 15);
             this.labelNoAccount.TabIndex = 9;
             this.labelNoAccount.Text = "Não tem uma conta?";
             // 
             // labelPassword
             // 
             this.labelPassword.AutoSize = true;
-            this.labelPassword.Location = new System.Drawing.Point(93, 199);
+            this.labelPassword.Location = new System.Drawing.Point(81, 149);
             this.labelPassword.Name = "labelPassword";
-            this.labelPassword.Size = new System.Drawing.Size(49, 20);
+            this.labelPassword.Size = new System.Drawing.Size(39, 15);
             this.labelPassword.TabIndex = 8;
             this.labelPassword.Text = "Senha";
             // 
             // labelEmail
             // 
             this.labelEmail.AutoSize = true;
-            this.labelEmail.Location = new System.Drawing.Point(93, 111);
+            this.labelEmail.Location = new System.Drawing.Point(81, 83);
             this.labelEmail.Name = "labelEmail";
-            this.labelEmail.Size = new System.Drawing.Size(46, 20);
+            this.labelEmail.Size = new System.Drawing.Size(36, 15);
             this.labelEmail.TabIndex = 7;
             this.labelEmail.Text = "Email";
             this.labelEmail.Click += new System.EventHandler(this.labelEmail_Click);
@@ -189,29 +185,28 @@
             // 
             this.labelLogin.AutoSize = true;
             this.labelLogin.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.labelLogin.Location = new System.Drawing.Point(67, 43);
+            this.labelLogin.Location = new System.Drawing.Point(73, 32);
             this.labelLogin.Name = "labelLogin";
-            this.labelLogin.Size = new System.Drawing.Size(315, 35);
+            this.labelLogin.Size = new System.Drawing.Size(243, 28);
             this.labelLogin.TabIndex = 6;
             this.labelLogin.Text = "Entre com suas credenciais";
             this.labelLogin.TextAlign = System.Drawing.ContentAlignment.TopRight;
             this.labelLogin.Click += new System.EventHandler(this.label1_Click_1);
             // 
-            // FormLogin
+            // FormRegister
             // 
             this.AcceptButton = this.buttonLogin;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.ClientSize = new System.Drawing.Size(555, 668);
+            this.ClientSize = new System.Drawing.Size(486, 501);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.labelVersion);
             this.Controls.Add(this.labelTitle);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.MaximizeBox = false;
-            this.Name = "FormLogin";
+            this.Name = "FormRegister";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Receipt - Login";
             this.Load += new System.EventHandler(this.FormLogin_Load);
@@ -233,7 +228,7 @@
         private System.Windows.Forms.Label labelLogin;
         private System.Windows.Forms.Label labelEmail;
         private System.Windows.Forms.Label labelPassword;
-        private System.Windows.Forms.LinkLabel linkLabel1;
+        private System.Windows.Forms.LinkLabel linkLabelRegister;
         private System.Windows.Forms.Label labelNoAccount;
         private System.Windows.Forms.Label labelEmailError;
         private System.Windows.Forms.Label labelPasswordError;
