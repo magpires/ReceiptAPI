@@ -1,9 +1,10 @@
-﻿using ReceiptAPI.Entities;
+﻿using ReceiptAPI.Dtos.Response;
+using ReceiptAPI.Entities;
 
 namespace ReceiptAPI.Services.Interfaces
 {
     public interface ITokenService
     {
-        string GenerateToken(User user);
+        TokenDto GenerateToken(User user);
     }
 }

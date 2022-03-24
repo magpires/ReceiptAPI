@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
+using ReceiptAPI.Dtos.Response;
 using ReceiptAPI.Entities;
 using ReceiptAPI.Services.Interfaces;
 using System;
@@ -18,7 +19,7 @@ namespace ReceiptAPI.Services
             _configuration = configuration;
         }
         
-        public string GenerateToken(User user)
+        public TokenDto GenerateToken(User user)
         {
             var tokenHandle = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(_configuration.GetSection("TokenSettings:Secret").Value);
@@ -39,9 +40,15 @@ namespace ReceiptAPI.Services
                 )
             };
 
-            var token = tokenHandle.CreateToken(tokenDescription);
+            var securityToken = tokenHandle.CreateToken(tokenDescription);
+            var token = tokenHandle.WriteToken(securityToken);
+            var expirationDate = tokenDescription.Expires.Value;
 
-            return tokenHandle.WriteToken(token);
+            return new TokenDto
+            {
+                Token = token,
+                ExpirationDate = expirationDate,
+            };
         }
     }
 }
