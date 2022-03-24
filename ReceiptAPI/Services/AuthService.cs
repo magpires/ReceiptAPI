@@ -52,15 +52,10 @@ namespace ReceiptAPI.Services
             }
 
             var userResponse = _mapper.Map<UserDetailsDto>(userDatabase);
-            var token = _token.GenerateToken(userDatabase);
+            var tokenResponse = _token.GenerateToken(userDatabase);
+            tokenResponse.User = userResponse;
 
-            TokenDto tokenDto = new TokenDto
-            {
-                User = userResponse,
-                Token = token,
-            };
-
-            return new ResponseDto(200, tokenDto);
+            return new ResponseDto(200, tokenResponse);
         }
 
         public async Task<ResponseDto> RegisterAsync(UserCreateDto user)
@@ -98,15 +93,10 @@ namespace ReceiptAPI.Services
                 return new ResponseDto(500, notifications);
 
             var userResponse = _mapper.Map<UserDetailsDto>(addUser);
-            var token = _token.GenerateToken(addUser);
+            var tokenResponse = _token.GenerateToken(addUser);
+            tokenResponse.User = userResponse;
 
-            TokenDto tokenDto = new TokenDto
-            {
-                User = userResponse,
-                Token = token,
-            };
-
-            return new ResponseDto(200, tokenDto);
+            return new ResponseDto(200, tokenResponse);
         }
     }
 }
