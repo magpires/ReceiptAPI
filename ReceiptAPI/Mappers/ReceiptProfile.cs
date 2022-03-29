@@ -2,7 +2,7 @@
 using ReceiptAPI.Dtos.Request;
 using ReceiptAPI.Dtos.Response;
 using ReceiptAPI.Entities;
-using System.Linq;
+using ReceiptAPI.Shared.Helpers;
 
 namespace ReceiptAPI.Mappers
 {
@@ -25,7 +25,8 @@ namespace ReceiptAPI.Mappers
                 .ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
 
             CreateMap<Receipt, ReceiptDto>()
-                .ForMember(dest => dest.CustomerName, opt => opt.MapFrom(src => src.Customer.Name));
+                .ForMember(dest => dest.CustomerName, opt => opt.MapFrom(src => src.Customer.Name))
+                .AfterMap((src, dest) => dest.PaymentMethod = TranslateToPtBrHelper.TranslatePaymentMethod(src.PaymentMethod));
             CreateMap<ProductReceipt, ProductReceiptDetailsDto>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Product.Id))
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Product.Name))
@@ -34,7 +35,8 @@ namespace ReceiptAPI.Mappers
                 .ForMember(dest => dest.Total, opt => opt.MapFrom(src => src.Quantity * src.Product.Price));
             CreateMap<Receipt, ReceiptDetailsDto>()
                 .ForMember(dest => dest.CustomerName, opt => opt.MapFrom(src => src.Customer.Name))
-                .ForMember(dest => dest.Products, opt => opt.MapFrom(src => src.ProductReceipts));
+                .ForMember(dest => dest.Products, opt => opt.MapFrom(src => src.ProductReceipts))
+                .AfterMap((src, dest) => dest.PaymentMethod = TranslateToPtBrHelper.TranslatePaymentMethod(src.PaymentMethod));
             CreateMap<ReceiptCreateDto, Receipt>()
                 .ForMember(dest => dest.ProductReceipts, opt => opt.Ignore());
             CreateMap<ReceiptUpdateDto, Receipt>()
