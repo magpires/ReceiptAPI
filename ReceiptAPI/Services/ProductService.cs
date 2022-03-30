@@ -68,6 +68,7 @@ namespace ReceiptAPI.Services
                 return new ResponseDto(400, contractNotifications);
 
             var addProduct = _mapper.Map<Product>(product);
+            addProduct.SetCreatedAt();
 
             _repository.Add(addProduct);
 
@@ -111,6 +112,7 @@ namespace ReceiptAPI.Services
             }
 
             var productUpdate = _mapper.Map(product, productDatabase);
+            productUpdate.SetUpdatedAt();
 
             _repository.Update(productUpdate);
 
