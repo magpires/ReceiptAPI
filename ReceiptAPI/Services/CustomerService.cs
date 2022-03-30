@@ -76,6 +76,7 @@ namespace ReceiptAPI.Services
             }
 
             var addCustomer = _mapper.Map<Customer>(customer);
+            addCustomer.SetCreatedAt();
 
             _repository.Add(addCustomer);
 
@@ -127,6 +128,7 @@ namespace ReceiptAPI.Services
             }
 
             var customerUpdate = _mapper.Map(customer, customerDatabase);
+            customerUpdate.SetUpdatedAt();
 
             _repository.Update(customerUpdate);
 
