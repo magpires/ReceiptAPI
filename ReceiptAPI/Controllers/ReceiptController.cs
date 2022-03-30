@@ -27,7 +27,7 @@ namespace ReceiptAPI.Controllers
             return StatusCode(response.StatusCode, response);
         }
 
-        [HttpGet("/Customer/{customerId}")]
+        [HttpGet("Customer/{customerId}")]
         public async Task<IActionResult> GetByCustomerIdAsync(int customerId)
         {
             var response = await _service.GetReceiptsByCustomerIdAsync(customerId);
