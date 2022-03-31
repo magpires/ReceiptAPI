@@ -36,7 +36,8 @@ namespace ReceiptAPI.Mappers
             CreateMap<Receipt, ReceiptDetailsDto>()
                 .ForMember(dest => dest.CustomerName, opt => opt.MapFrom(src => src.Customer.Name))
                 .ForMember(dest => dest.Products, opt => opt.MapFrom(src => src.ProductReceipts))
-                .AfterMap((src, dest) => dest.PaymentMethod = TranslateToPtBrHelper.TranslatePaymentMethod(src.PaymentMethod));
+                .AfterMap((src, dest) => dest.PaymentMethod = TranslateToPtBrHelper.TranslatePaymentMethod(src.PaymentMethod))
+                .AfterMap((src, dest) => dest.Total = ReceiptHelper.CalculateTotalReceiptPrice(dest.Products));
             CreateMap<ReceiptCreateDto, Receipt>()
                 .ForMember(dest => dest.ProductReceipts, opt => opt.Ignore());
             CreateMap<ReceiptUpdateDto, Receipt>()
