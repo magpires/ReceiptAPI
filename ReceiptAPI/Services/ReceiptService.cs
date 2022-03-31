@@ -77,7 +77,6 @@ namespace ReceiptAPI.Services
             }
 
             var receiptResponse = _mapper.Map<ReceiptDetailsDto>(receipt);
-            receiptResponse.CalculateTotalReceipt();
 
             return new ResponseDto(200, receiptResponse);
         }
@@ -158,7 +157,6 @@ namespace ReceiptAPI.Services
                 return new ResponseDto(500, notifications);
 
             var receiptResponse = _mapper.Map<ReceiptDetailsDto>(addReceipt);
-            receiptResponse.CalculateTotalReceipt();
 
             return new ResponseDto(200, receiptResponse);
         }
