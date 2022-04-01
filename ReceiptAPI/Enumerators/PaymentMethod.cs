@@ -8,9 +8,7 @@ namespace ReceiptAPI.Enumerators
 {
     public enum PaymentMethod
     {
-        [Description("Dinheiro")]
         CASH = 1,
-        [Description("Cartão de Crédito")]
         CREDITCARD = 2,
     }
 }
