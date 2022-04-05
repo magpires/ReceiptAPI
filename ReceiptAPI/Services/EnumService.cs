@@ -1,15 +1,10 @@
 ﻿using AutoMapper;
-using Flunt.Notifications;
-using ReceiptAPI.Dtos.Request;
 using ReceiptAPI.Dtos.Response;
-using ReceiptAPI.Entities;
 using ReceiptAPI.Enumerators;
-using ReceiptAPI.Repositories.Interfaces;
-using ReceiptAPI.Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
+using ReceiptAPI.Shared.Helpers;
 
 namespace ReceiptAPI.Services
 {
@@ -24,12 +19,20 @@ namespace ReceiptAPI.Services
 
         public static ResponseDto GetPaymentsMethods()
         {
-            var enums = Enum.GetValues<PaymentMethod>().Cast<PaymentMethod>()
-                            .Select(v => v.ToString());
+            var enums = Enum.GetValues<PaymentMethod>().Cast<PaymentMethod>();
 
-            var enumInt = Enum.GetValues<PaymentMethod>().Cast<PaymentMethod>();
+            var paymentsMethods = new List<PaymentMethodDto>();
 
-            return new ResponseDto(200, enumInt);
+            foreach (var enumValue in enums)
+            {
+                paymentsMethods.Add(new PaymentMethodDto
+                {
+                    Description = TranslateToPtBrHelper.TranslatePaymentMethod(enumValue),
+                    Value = enumValue
+                });
+            }
+
+            return new ResponseDto(200, paymentsMethods);
         }
     }
 }
