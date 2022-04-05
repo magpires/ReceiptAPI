@@ -10,7 +10,7 @@ namespace ReceiptAPI.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    //[Authorize(AuthenticationSchemes = "Bearer")]
+    [Authorize(AuthenticationSchemes = "Bearer")]
     public class EnumController : ControllerBase
     {
 
