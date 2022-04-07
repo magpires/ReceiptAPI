@@ -21,7 +21,7 @@ namespace ReceiptAPI.Controllers
         [HttpGet("PaymentsMethods")]
         public IActionResult GetPaymentsMethods()
         {
-            var response = EnumService.GetPaymentsMethods();
+            var response = EnumService.GetPaymentMethods();
 
             return StatusCode(response.StatusCode, response);
         }
