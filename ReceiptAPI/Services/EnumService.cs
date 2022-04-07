@@ -17,7 +17,7 @@ namespace ReceiptAPI.Services
             _mapper = mapper;
         }
 
-        public static ResponseDto GetPaymentsMethods()
+        public static ResponseDto GetPaymentMethods()
         {
             var enums = Enum.GetValues<PaymentMethod>().Cast<PaymentMethod>();
 
