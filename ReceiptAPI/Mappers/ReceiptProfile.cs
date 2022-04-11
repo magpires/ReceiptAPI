@@ -11,10 +11,10 @@ namespace ReceiptAPI.Mappers
         public ReceiptProfile()
         {
             CreateMap<Customer, CustomerDto>()
-                .AfterMap((src, dest) => dest.PhoneNumber = CustomerHelper.FormatPhonNumbere(src.PhoneNumber));
+                .AfterMap((src, dest) => dest.PhoneNumber = StringHelper.FormatPhonNumbere(src.PhoneNumber));
             CreateMap<Customer, CustomerDetailsDto>()
-                .AfterMap((src, dest) => dest.PhoneNumber = CustomerHelper.FormatPhonNumbere(src.PhoneNumber))
-                .AfterMap((src, dest) => dest.PostalCode = CustomerHelper.FormatPostalCode(src.PostalCode));
+                .AfterMap((src, dest) => dest.PhoneNumber = StringHelper.FormatPhonNumbere(src.PhoneNumber))
+                .AfterMap((src, dest) => dest.PostalCode = StringHelper.FormatPostalCode(src.PostalCode));
             CreateMap<CustomerCreateDto, Customer>();
             CreateMap<CustomerUpdateDto, Customer>()
                 .ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
