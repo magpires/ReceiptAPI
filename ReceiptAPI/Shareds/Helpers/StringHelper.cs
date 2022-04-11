@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace ReceiptAPI.Shared.Helpers
 {
-    public static class CustomerHelper
+    public static class StringHelper
     {
         public static string FormatPhonNumbere(string phoneNumber)
         {
