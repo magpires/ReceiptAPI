@@ -119,12 +119,17 @@ namespace ReceiptAPI.Services
                 return new ResponseDto(404, notifications); ;
             }
 
-            var emailExists = await _repository.GetCustomerByEmailAsync(customer.Email) != null;
+            var emailChanged = customer.Email != null && customerDatabase.Email != customer.Email;
 
-            if (emailExists)
+            if (emailChanged)
             {
-                notifications.Add(new Notification("emailExists", "Já existe um cliente com este endereço de email."));
-                return new ResponseDto(400, notifications); ;
+                var emailExists = await _repository.GetCustomerByEmailAsync(customer.Email) != null;
+
+                if (emailExists)
+                {
+                    notifications.Add(new Notification("emailExists", "Já existe um cliente com este endereço de email."));
+                    return new ResponseDto(400, notifications);
+                }
             }
 
             var customerUpdate = _mapper.Map(customer, customerDatabase);
