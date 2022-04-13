@@ -9,12 +9,20 @@ namespace ReceiptAPI.Shared.Helpers
     {
         public static string FormatPhonNumbere(string phoneNumber)
         {
-            return long.Parse(phoneNumber).ToString(@"(00) 00000-0000"); ;
+            var phoneNumberNotEmpty = phoneNumber.Length > 0;
+
+            if (phoneNumberNotEmpty)
+                return long.Parse(phoneNumber).ToString(@"(00) 00000-0000");
+            return "";
         }
 
         public static string FormatPostalCode(string postalCode)
         {
-            return Convert.ToUInt64(postalCode).ToString(@"00000\-000");
+            var postalCodeNotEmpty = postalCode.Length > 0;
+
+            if (postalCodeNotEmpty)
+                return Convert.ToUInt64(postalCode).ToString(@"00000\-000");
+            return "";
         }
     }
 }
