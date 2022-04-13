@@ -16,10 +16,9 @@ namespace ReceiptAPI.Mappers
                 .AfterMap((src, dest) => dest.PhoneNumber = StringHelper.FormatPhonNumbere(src.PhoneNumber))
                 .AfterMap((src, dest) => dest.PostalCode = StringHelper.FormatPostalCode(src.PostalCode));
             CreateMap<CustomerCreateDto, Customer>();
+            CreateMap<int?, int>().ConvertUsing((src, dest) => src ?? dest);
             CreateMap<CustomerUpdateDto, Customer>()
                 .ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
-            CreateMap<CustomerUpdateDto, Customer>()
-                .ForMember(dest => dest.Email, opt => opt.Condition(srcMember => (srcMember.Email != "")));
 
             CreateMap<Product, ProductDto>();
             CreateMap<Product, ProductDetailsDto>();
